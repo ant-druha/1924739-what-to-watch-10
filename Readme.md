@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Андрей Дернов](https://up.htmlacademy.ru/react/10/user/1924739).
-* Наставник: `Неизвестно`.
+* Наставник: [Михаил Кислый](https://htmlacademy.ru/profile/smart-grizzly).
 
 ---
 
