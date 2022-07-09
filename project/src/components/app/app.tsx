@@ -1,7 +1,6 @@
-import {MainScreen} from "../../pages/main-screen/main-screen";
+import {MainScreen} from '../../pages/main-screen/main-screen';
 
-function App(): JSX.Element {
-  return <MainScreen/>;
-}
+export const App = (): JSX.Element =>
+  <MainScreen filmTitle='The Grand Budapest Hotel' filmGenre='Drama' filmReleaseDate='2014'/>;
 
 export default App;

@@ -1,6 +1,12 @@
 import {FilmCardSmall} from '../../components/film-card-small/film-card-small';
 
-export const MainScreen = () => (
+type MainScreenProps = {
+  filmTitle: string
+  filmGenre: string
+  filmReleaseDate: string
+}
+
+export const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: MainScreenProps): JSX.Element => (
   <>
     <section className="film-card">
       <div className="film-card__bg">
@@ -33,16 +39,16 @@ export const MainScreen = () => (
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+            <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${filmTitle} poster`} width="218"
               height="327"
             />
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+            <h2 className="film-card__title">{filmTitle}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">Drama</span>
-              <span className="film-card__year">2014</span>
+              <span className="film-card__genre">{filmGenre}</span>
+              <span className="film-card__year">{filmReleaseDate}</span>
             </p>
 
             <div className="film-card__buttons">
