@@ -1,4 +1,10 @@
 
 export const AppRoute = {
-  INDEX: 'INDEX'
+  Root: '/',
+  Login: 'login',
+  MyList: 'mylist',
+  Films: 'films',
+  Film: ':id',
+  Review: 'review',
+  Player: 'player'
 } as const;
