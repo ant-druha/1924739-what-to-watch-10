@@ -1,12 +1,13 @@
 import {MainScreen} from '../../pages/main-screen/main-screen';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {AppRoute} from '../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import {Login} from '../../pages/login-screen/login';
 import {MyList} from '../../pages/my-list-screen/my-list';
 import {Film} from '../../pages/film-screen/film';
 import {Review} from '../../pages/submit-review-screen/review';
 import {Player} from '../../pages/player-scren/player';
 import {NotFound} from '../../pages/not-found-screen/not-found';
+import {PrivateRoute} from '../private-route/private-route';
 
 export const App = (): JSX.Element => (
   <BrowserRouter>
@@ -16,7 +17,12 @@ export const App = (): JSX.Element => (
         element={<MainScreen filmTitle='The Grand Budapest Hotel' filmGenre='Drama' filmReleaseDate='2014'/>}
       />
       <Route path={AppRoute.Login} element={<Login/>}/>
-      <Route path={AppRoute.MyList} element={<MyList/>}/>
+      <Route path={AppRoute.MyList} element={
+        <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+          <MyList/>
+        </PrivateRoute>
+      }
+      />
       <Route path={AppRoute.Films}>
         <Route index element={<NotFound/>}/>
         <Route path={AppRoute.Film}>
