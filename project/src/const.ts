@@ -1,4 +1,3 @@
-
 export const AppRoute = {
   Root: '/',
   Login: '/login',

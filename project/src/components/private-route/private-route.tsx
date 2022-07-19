@@ -3,7 +3,6 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 
 type AuthorizationStatusEnum = typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
 
-
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatusEnum,
   children: JSX.Element

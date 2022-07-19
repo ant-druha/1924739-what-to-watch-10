@@ -1,4 +1,3 @@
-
 export const Review = (): JSX.Element => (
   <section className="film-card film-card--full">
     <div className="film-card__header">
