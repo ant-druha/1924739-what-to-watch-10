@@ -1,14 +1,14 @@
 import {useParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
-import {Film, getFilmRatingLevel} from '../../mocks/films';
+import {Film, FILMS, getFilmRatingLevel} from '../../mocks/films';
 
 export const FilmScreen = (): JSX.Element => {
   const params = useParams();
-  if (!params.film) {
+  if (!params.id) {
     return <NotFoundScreen/>;
   }
 
-  const film = JSON.parse(params.film) as Film;
+  const film = FILMS.find((aFilm) => aFilm.id === Number(params.id)) as Film;
 
   return (
     <>
