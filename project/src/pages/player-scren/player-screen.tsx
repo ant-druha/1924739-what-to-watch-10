@@ -1,4 +1,4 @@
-export const Player = (): JSX.Element => (
+export const PlayerScreen = (): JSX.Element => (
   <div className="player">
     <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 

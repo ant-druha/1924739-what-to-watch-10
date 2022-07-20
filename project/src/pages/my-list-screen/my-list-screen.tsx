@@ -1,4 +1,4 @@
-export const MyList = (): JSX.Element => (
+export const MyListScreen = (): JSX.Element => (
   <div className="user-page">
     <header className="page-header user-page__head">
       <div className="logo">

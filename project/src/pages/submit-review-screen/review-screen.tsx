@@ -1,4 +1,4 @@
-export const Review = (): JSX.Element => (
+export const ReviewScreen = (): JSX.Element => (
   <section className="film-card film-card--full">
     <div className="film-card__header">
       <div className="film-card__bg">
@@ -84,7 +84,7 @@ export const Review = (): JSX.Element => (
 
         <div className="add-review__text">
           <textarea className="add-review__textarea" name="review-text" id="review-text"
-            placeholder="Review text"
+            placeholder="ReviewScreen text"
           >
           </textarea>
           <div className="add-review__submit">

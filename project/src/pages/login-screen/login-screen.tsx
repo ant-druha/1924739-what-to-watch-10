@@ -1,4 +1,4 @@
-export const Login = (): JSX.Element => (
+export const LoginScreen = (): JSX.Element => (
   <div className="user-page">
     <header className="page-header user-page__head">
       <div className="logo">
