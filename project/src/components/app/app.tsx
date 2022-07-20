@@ -8,7 +8,8 @@ import {PlayerScreen} from '../../pages/player-scren/player-screen';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen';
 import {PrivateRoute} from '../private-route/private-route';
 import {FilmScreen} from '../../pages/film-screen/film-screen';
-import {Film} from '../../mocks/films';
+import {Film, FILMS} from '../../mocks/films';
+import {getRandomSlice} from '../../mocks/utils';
 
 type AppProps = {
   films: Film[]
@@ -23,8 +24,8 @@ export const App = ({films}: AppProps): JSX.Element => (
       />
       <Route path={AppRoute.Login} element={<LoginScreen/>}/>
       <Route path={AppRoute.MyList} element={
-        <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-          <MyListScreen/>
+        <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+          <MyListScreen films={getRandomSlice(FILMS)}/>
         </PrivateRoute>
       }
       />

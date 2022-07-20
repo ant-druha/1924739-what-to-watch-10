@@ -43,13 +43,15 @@ export const getFilmRatingLevel = (rating: number): string => {
 const generateFilmId = createIdGenerator();
 
 const filmNames = [
-  'The Dance of Life',
-  'Sagebrush Trail',
-  'The Man with the Golden Arm',
-  'Santa Claus Conquers the Martians',
-  'Popeye the Sailor Meets Sindbad the Sailor',
-  'The Man with the Golden Arm',
-  'The Great Flamarion',
+  'Fantastic Beasts: The Crimes of Grindelwald',
+  'Bohemian Rhapsody',
+  'Macbeth',
+  'Aviator',
+  'We need to talk about Kevin',
+  'What We Do in the Shadows',
+  'Revenant',
+  'Johnny English',
+  'Shutter Island'
 ];
 
 const posterImages = [
