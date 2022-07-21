@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {LoginScreen} from '../../pages/login-screen/login-screen';
 import {MyListScreen} from '../../pages/my-list-screen/my-list-screen';
-import {ReviewScreen} from '../../pages/submit-review-screen/review-screen';
+import {AddReviewScreen} from '../../pages/add-review-screen/add-review-screen';
 import {PlayerScreen} from '../../pages/player-scren/player-screen';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen';
 import {PrivateRoute} from '../private-route/private-route';
@@ -33,7 +33,7 @@ export const App = ({films}: AppProps): JSX.Element => (
         <Route index element={<NotFoundScreen/>}/>
         <Route path={AppRoute.Film}>
           <Route index element={<FilmScreen/>}/>
-          <Route path={AppRoute.Review} element={<ReviewScreen/>}/>
+          <Route path={AppRoute.Review} element={<AddReviewScreen/>}/>
         </Route>
       </Route>
       <Route path={AppRoute.Player} element={<PlayerScreen/>}/>
