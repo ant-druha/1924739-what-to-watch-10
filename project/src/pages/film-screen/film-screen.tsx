@@ -1,6 +1,12 @@
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {Film, FILMS, getFilmRatingLevel} from '../../mocks/films';
+import {FilmsList} from '../../components/films-list/films-list';
+import {getRandomSlice} from '../../mocks/utils';
+import {PageFooter} from '../../components/page-footer/page-footer';
+import {Logo} from '../../components/logo/logo';
+import {AppRoute} from '../../const';
+import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
 
 export const FilmScreen = (): JSX.Element => {
   const params = useParams();
@@ -19,19 +25,13 @@ export const FilmScreen = (): JSX.Element => {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={film.backgroundImage} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
+            <Logo/>
 
             <ul className="user-block">
               <li className="user-block__item">
@@ -54,12 +54,7 @@ export const FilmScreen = (): JSX.Element => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <FilmCardButtonPlay filmId={film.id}/>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -67,7 +62,7 @@ export const FilmScreen = (): JSX.Element => {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to={`${AppRoute.Films}/${film.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -104,19 +99,7 @@ export const FilmScreen = (): JSX.Element => {
 
               <div className="film-card__text">
                 {film.description}
-                {/*<p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge*/}
-                {/*  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend and protege.*/}
-                {/*</p>*/}
-
-                {/*<p>Gustave prides himself on providing first-class service to the hotel&apos;s guests, including*/}
-                {/*  satisfying the*/}
-                {/*  sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies*/}
-                {/*  mysteriously,*/}
-                {/*  Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.*/}
-                {/*</p>*/}
-
                 <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
                 <p className="film-card__starring"><strong>Starring: {film.starring.join(', ')} and other</strong>
                 </p>
               </div>
@@ -128,63 +111,10 @@ export const FilmScreen = (): JSX.Element => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                  alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"
-                />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of
-                  Grindelwald
-                </a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
+          <FilmsList films={getRandomSlice(FILMS)}/>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <PageFooter/>
       </div>
     </>
   );

@@ -1,5 +1,7 @@
 import {Film} from '../../mocks/films';
 import {MouseEventHandler} from 'react';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 type FilmCardSmallProps = {
   film: Film
@@ -14,7 +16,7 @@ export const FilmCardSmall = ({film, handleHoverOn, handleHoverOff}: FilmCardSma
       />
     </div>
     <h3 className="small-film-card__title">
-      <a className="small-film-card__link" href="film-page.html">{film.name}</a>
+      <Link className="small-film-card__link" to={`${AppRoute.Films}/${film.id}`}>{film.name}</Link>
     </h3>
   </article>
 );

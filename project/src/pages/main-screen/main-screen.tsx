@@ -1,12 +1,15 @@
 import {FilmsList} from '../../components/films-list/films-list';
 import {Film} from '../../mocks/films';
+import {PageFooter} from '../../components/page-footer/page-footer';
+import {Logo} from '../../components/logo/logo';
+import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
 
 type MainScreenProps = {
   films: Film[]
 }
 
 export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
-  const {name: filmTitle, genre: filmGenre, released: filmReleaseDate, backgroundImage, posterImage} = films[0];
+  const {id: filmId, name: filmTitle, genre: filmGenre, released: filmReleaseDate, backgroundImage, posterImage} = films[0];
 
   return (
     <>
@@ -18,13 +21,7 @@ export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo/>
 
           <ul className="user-block">
             <li className="user-block__item">
@@ -54,12 +51,7 @@ export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <FilmCardButtonPlay filmId={filmId}/>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -117,19 +109,7 @@ export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <PageFooter/>
       </div>
 
     </>
