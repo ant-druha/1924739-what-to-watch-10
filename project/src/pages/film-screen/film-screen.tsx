@@ -10,6 +10,10 @@ export const FilmScreen = (): JSX.Element => {
 
   const film = FILMS.find((aFilm) => aFilm.id === Number(params.id)) as Film;
 
+  if (!film) {
+    return <NotFoundScreen/>;
+  }
+
   return (
     <>
       <section className="film-card film-card--full">

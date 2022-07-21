@@ -9,6 +9,10 @@ export const PlayerScreen = (): JSX.Element => {
   }
   const film = FILMS.find((aFilm) => aFilm.id === Number(params.id)) as Film;
 
+  if (!film) {
+    return <NotFoundScreen/>;
+  }
+
   return (
     <div className="player">
       <video src={film.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
