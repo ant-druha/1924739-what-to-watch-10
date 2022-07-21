@@ -1,4 +1,3 @@
-
 export const AppRoute = {
   Root: '/',
   Login: '/login',
@@ -6,7 +5,7 @@ export const AppRoute = {
   Films: '/films',
   Film: ':id',
   Review: 'review',
-  Player: '/player'
+  Player: '/player/:id'
 } as const;
 
 export const AuthorizationStatus = {

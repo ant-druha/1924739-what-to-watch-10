@@ -1,37 +1,43 @@
 import {MainScreen} from '../../pages/main-screen/main-screen';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Login} from '../../pages/login-screen/login';
-import {MyList} from '../../pages/my-list-screen/my-list';
-import {Film} from '../../pages/film-screen/film';
-import {Review} from '../../pages/submit-review-screen/review';
-import {Player} from '../../pages/player-scren/player';
-import {NotFound} from '../../pages/not-found-screen/not-found';
+import {LoginScreen} from '../../pages/login-screen/login-screen';
+import {MyListScreen} from '../../pages/my-list-screen/my-list-screen';
+import {AddReviewScreen} from '../../pages/add-review-screen/add-review-screen';
+import {PlayerScreen} from '../../pages/player-scren/player-screen';
+import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen';
 import {PrivateRoute} from '../private-route/private-route';
+import {FilmScreen} from '../../pages/film-screen/film-screen';
+import {Film, FILMS} from '../../mocks/films';
+import {getRandomSlice} from '../../mocks/utils';
 
-export const App = (): JSX.Element => (
+type AppProps = {
+  films: Film[]
+}
+
+export const App = ({films}: AppProps): JSX.Element => (
   <BrowserRouter>
     <Routes>
       <Route
         path={AppRoute.Root}
-        element={<MainScreen filmTitle='The Grand Budapest Hotel' filmGenre='Drama' filmReleaseDate='2014'/>}
+        element={<MainScreen films={films}/>}
       />
-      <Route path={AppRoute.Login} element={<Login/>}/>
+      <Route path={AppRoute.Login} element={<LoginScreen/>}/>
       <Route path={AppRoute.MyList} element={
-        <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-          <MyList/>
+        <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+          <MyListScreen films={getRandomSlice(FILMS)}/>
         </PrivateRoute>
       }
       />
       <Route path={AppRoute.Films}>
-        <Route index element={<NotFound/>}/>
+        <Route index element={<NotFoundScreen/>}/>
         <Route path={AppRoute.Film}>
-          <Route index element={<Film/>}/>
-          <Route path={AppRoute.Review} element={<Review/>}/>
+          <Route index element={<FilmScreen/>}/>
+          <Route path={AppRoute.Review} element={<AddReviewScreen/>}/>
         </Route>
       </Route>
-      <Route path={AppRoute.Player} element={<Player/>}/>
-      <Route path='*' element={<NotFound/>}/>
+      <Route path={AppRoute.Player} element={<PlayerScreen/>}/>
+      <Route path='*' element={<NotFoundScreen/>}/>
     </Routes>
   </BrowserRouter>
 );
