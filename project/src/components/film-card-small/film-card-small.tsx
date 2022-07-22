@@ -5,7 +5,7 @@ import {AppRoute} from '../../const';
 
 type FilmCardSmallProps = {
   film: Film
-  handleHoverOn: MouseEventHandler
+  handleHoverOn: MouseEventHandler,
   handleHoverOff: MouseEventHandler
 }
 export const FilmCardSmall = ({film, handleHoverOn, handleHoverOff}: FilmCardSmallProps ): JSX.Element => (
