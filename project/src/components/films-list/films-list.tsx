@@ -1,5 +1,5 @@
 import {Film} from '../../mocks/films';
-import {FilmCardSmall} from '../film-card-small/film-card-small';
+import {FilmCard} from '../film-card/film-card';
 import {useState} from 'react';
 
 type FilmsListProps = {
@@ -16,7 +16,7 @@ export const FilmsList = ({films}: FilmsListProps) => {
   return (
     <div className="catalog__films-list">
       {films.map((film: Film): JSX.Element => (
-        <FilmCardSmall
+        <FilmCard
           key={film.id}
           film={film}
           handleHoverOn={handleHoverOn(film.id)}
