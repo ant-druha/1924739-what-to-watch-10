@@ -3,8 +3,8 @@ import {useEffect, useRef} from 'react';
 type VideoPlayerProps = {
   source: string,
   poster: string,
-  isPlaying: boolean
-  isMuteSound: boolean
+  isPlaying: boolean,
+  isMuteSound: boolean,
 }
 
 export const VideoPlayer = ({source, poster, isPlaying, isMuteSound = false}: VideoPlayerProps): JSX.Element => {
@@ -23,7 +23,12 @@ export const VideoPlayer = ({source, poster, isPlaying, isMuteSound = false}: Vi
   });
 
   return (
-    <video ref={playerRef} src={source} poster={poster} muted={isMuteSound} width="280"
+    <video
+      ref={playerRef}
+      src={source}
+      poster={poster}
+      muted={isMuteSound}
+      width="280"
       height="175"
     >
     </video>

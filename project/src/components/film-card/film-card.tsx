@@ -13,13 +13,14 @@ export type FilmCardProps = {
 export const FilmCard = ({film, handleHoverOn, handleHoverOff}: FilmCardProps): JSX.Element => {
   const [isPlayPreview, setPlayPreview] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>();
+  const MOUSE_ENTER_TIMEOUT = 1000;
 
   const handleMouse = (isEnter: boolean) => {
     if (isEnter) {
       handleHoverOn(film.id);
       const aTimeoutId = setTimeout(() => {
         setPlayPreview(true);
-      }, 1000);
+      }, MOUSE_ENTER_TIMEOUT);
       setTimeoutId(aTimeoutId);
     } else {
       handleHoverOff();
