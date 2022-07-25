@@ -8,11 +8,12 @@ import {PlayerScreen} from '../../pages/player-scren/player-screen';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen';
 import {PrivateRoute} from '../private-route/private-route';
 import {FilmScreen} from '../../pages/film-screen/film-screen';
-import {Film, FILMS} from '../../mocks/films';
+import {FILMS} from '../../mocks/films';
+import {Film} from '../../types/film';
 import {getRandomSlice} from '../../mocks/utils';
 
 type AppProps = {
-  films: Film[]
+  films: Film[],
 }
 
 export const App = ({films}: AppProps): JSX.Element => (

@@ -1,4 +1,5 @@
-import {Film, FILMS} from '../../mocks/films';
+import {FILMS} from '../../mocks/films';
+import {Film} from '../../types/film';
 import {useParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 

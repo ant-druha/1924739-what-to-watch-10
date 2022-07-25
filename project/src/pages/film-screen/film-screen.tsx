@@ -1,11 +1,12 @@
 import {Link, useParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
-import {Film, FILMS, getFilmRatingLevel} from '../../mocks/films';
+import {FILMS} from '../../mocks/films';
+import {Film} from '../../types/film';
 import {FilmsList} from '../../components/films-list/films-list';
 import {getRandomSlice} from '../../mocks/utils';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {Logo} from '../../components/logo/logo';
-import {AppRoute} from '../../const';
+import {AppRoute, RATING_LEVEL_EXCELLENT, RATING_LEVEL_GOOD, RATING_LEVEL_VERY_GOOD} from '../../const';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
 
 export const FilmScreen = (): JSX.Element => {
@@ -19,6 +20,22 @@ export const FilmScreen = (): JSX.Element => {
   if (!film) {
     return <NotFoundScreen/>;
   }
+
+  const getFilmRatingLevel = (rating: number): string => {
+    if (rating < RATING_LEVEL_GOOD) {
+      return 'Bad';
+    }
+    if (rating < RATING_LEVEL_VERY_GOOD) {
+      return 'Good';
+    }
+    if (rating < RATING_LEVEL_EXCELLENT) {
+      return 'Very good';
+    }
+    if (rating >= RATING_LEVEL_EXCELLENT) {
+      return 'Excellent';
+    }
+    return '';
+  };
 
   return (
     <>

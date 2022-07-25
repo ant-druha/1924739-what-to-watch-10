@@ -1,10 +1,10 @@
-import {Film} from '../../mocks/films';
+import {Film} from '../../types/film';
 import {FilmCard} from '../film-card/film-card';
 import {useState} from 'react';
 
 type FilmsListProps = {
-  films: Film[]
-}
+  films: Film[],
+};
 
 export const FilmsList = ({films}: FilmsListProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

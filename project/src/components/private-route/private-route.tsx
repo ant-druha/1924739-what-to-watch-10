@@ -5,8 +5,8 @@ type AuthorizationStatusEnum = typeof AuthorizationStatus[keyof typeof Authoriza
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatusEnum,
-  children: JSX.Element
-}
+  children: JSX.Element,
+};
 
 export const PrivateRoute = (props: PrivateRouteProps) => {
   const {authorizationStatus, children} = props;

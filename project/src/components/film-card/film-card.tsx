@@ -1,13 +1,13 @@
-import {Film} from '../../mocks/films';
+import {Film} from '../../types/film';
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {VideoPlayer} from '../video-player/video-player';
 
 export type FilmCardProps = {
-  film: Film
+  film: Film,
   handleHoverOn: (filmId: number) => void,
-  handleHoverOff: () => void
+  handleHoverOff: () => void,
 }
 
 export const FilmCard = ({film, handleHoverOn, handleHoverOff}: FilmCardProps): JSX.Element => {

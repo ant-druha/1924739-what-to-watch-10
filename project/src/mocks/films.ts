@@ -1,44 +1,5 @@
 import {createIdGenerator, getRandomFloat, getRandomInteger, getRandomSlice, getRandomValue} from './utils';
-
-export type Film = {
-  id: number
-  name: string
-  posterImage: string
-  previewImage: string
-  backgroundImage: string
-  backgroundColor: string
-  videoLink: string
-  previewVideoLink: string
-  description: string
-  rating: number
-  scoresCount: number
-  director: string
-  starring: string[]
-  runTime: number
-  genre: string
-  released: number
-  isFavorite: boolean
-};
-
-const RATING_LEVEL_GOOD = 3;
-const RATING_LEVEL_VERY_GOOD = 6;
-const RATING_LEVEL_EXCELLENT = 8;
-
-export const getFilmRatingLevel = (rating: number): string => {
-  if (rating < RATING_LEVEL_GOOD) {
-    return 'Bad';
-  }
-  if (rating < RATING_LEVEL_VERY_GOOD) {
-    return 'Good';
-  }
-  if (rating < RATING_LEVEL_EXCELLENT) {
-    return 'Very good';
-  }
-  if (rating >= RATING_LEVEL_EXCELLENT) {
-    return 'Excellent';
-  }
-  return '';
-};
+import {Film} from '../types/film';
 
 const generateFilmId = createIdGenerator();
 

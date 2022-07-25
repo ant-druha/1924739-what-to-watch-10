@@ -1,3 +1,7 @@
+export const RATING_LEVEL_GOOD = 3;
+export const RATING_LEVEL_VERY_GOOD = 6;
+export const RATING_LEVEL_EXCELLENT = 8;
+
 export const AppRoute = {
   Root: '/',
   Login: '/login',
@@ -13,3 +17,5 @@ export const AuthorizationStatus = {
   NoAuth: 'NoAuth',
   Unknown: 'Unknown'
 } as const;
+
+export const GENRE_ALL = 'All genres';
