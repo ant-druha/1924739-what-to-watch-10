@@ -3,6 +3,7 @@ import {Film} from '../../types/film';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {Logo} from '../../components/logo/logo';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
+import {GenresList} from '../../components/genres-list/genres-list';
 
 type MainScreenProps = {
   films: Film[]
@@ -10,6 +11,8 @@ type MainScreenProps = {
 
 export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
   const {id: filmId, name: filmTitle, genre: filmGenre, released: filmReleaseDate, backgroundImage, posterImage} = films[0];
+
+  const genres = new Set(films.map((film) => film.genre));
 
   return (
     <>
@@ -69,38 +72,7 @@ export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenresList genres={genres}/>
 
           <FilmsList films={films}/>
 
