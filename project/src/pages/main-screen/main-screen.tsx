@@ -4,6 +4,7 @@ import {PageFooter} from '../../components/page-footer/page-footer';
 import {Logo} from '../../components/logo/logo';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
 import {GenresList} from '../../components/genres-list/genres-list';
+import {useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
   films: Film[]
@@ -12,7 +13,10 @@ type MainScreenProps = {
 export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
   const {id: filmId, name: filmTitle, genre: filmGenre, released: filmReleaseDate, backgroundImage, posterImage} = films[0];
 
+  const {films: filteredFilms} = useAppSelector((state) => state);
+
   const genres = new Set(films.map((film) => film.genre));
+
 
   return (
     <>
@@ -74,7 +78,7 @@ export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
 
           <GenresList genres={genres}/>
 
-          <FilmsList films={films}/>
+          <FilmsList films={filteredFilms}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button"> Show more</button>

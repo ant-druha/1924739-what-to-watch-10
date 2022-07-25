@@ -1,5 +1,3 @@
-import {Genre} from '../const';
-
 export type Film = {
   id: number
   name: string
@@ -20,4 +18,4 @@ export type Film = {
   isFavorite: boolean
 };
 
-export type FilmGenre = typeof Genre[keyof typeof Genre];
+export type FilmGenre = string
