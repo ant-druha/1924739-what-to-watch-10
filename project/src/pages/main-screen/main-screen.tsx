@@ -1,5 +1,5 @@
 import {FilmsList} from '../../components/films-list/films-list';
-import {Film} from '../../mocks/films';
+import {Film} from '../../types/film';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {Logo} from '../../components/logo/logo';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';

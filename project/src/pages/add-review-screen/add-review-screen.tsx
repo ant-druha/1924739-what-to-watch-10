@@ -1,6 +1,7 @@
 import {Link, useParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
-import {Film, FILMS} from '../../mocks/films';
+import {FILMS} from '../../mocks/films';
+import {Film} from '../../types/film';
 import {Logo} from '../../components/logo/logo';
 import {AppRoute} from '../../const';
 import {AddReviewForm} from '../../components/add-review-form/add-review-form';

@@ -1,4 +1,4 @@
-import {Film} from '../../mocks/films';
+import {Film} from '../../types/film';
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
