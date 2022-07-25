@@ -17,7 +17,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getFilmsByGenre, (state, action) => {
       const {genre} = action.payload;
-      state.films = FILMS.filter((film) => film.genre === genre);
+      state.films = genre === Genre.All ? [...FILMS] : FILMS.filter((film) => film.genre === genre);
     })
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload.genre;
