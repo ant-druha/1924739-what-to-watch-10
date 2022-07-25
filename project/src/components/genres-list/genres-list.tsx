@@ -16,7 +16,7 @@ export const GenresList = ({genres}: GenresListProps) => {
   const dispatch = useAppDispatch();
 
   const handleGenreClick = (evt: React.MouseEvent) => {
-    const target = (evt.target as HTMLElement)?.closest('.catalog__genres-item') as HTMLElement;
+    const target = (evt.currentTarget as HTMLElement) as HTMLElement;
     const genre = target?.dataset?.genre as string;
     if (genre) {
       currentGenre = genre;
@@ -30,10 +30,9 @@ export const GenresList = ({genres}: GenresListProps) => {
       {genresList
         .map((genre) => (
           <li key={genre}
-            data-genre={genre}
             className={`catalog__genres-item ${genre === currentGenre ? 'catalog__genres-item--active' : ''}`}
           >
-            <a href="#" className="catalog__genres-link" onClick={handleGenreClick}>{genre}</a>
+            <a href="#" data-genre={genre} className="catalog__genres-link" onClick={handleGenreClick}>{genre}</a>
           </li>
         )
         )}
