@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 
 type FilmCardButtonPlayProps = {
-  filmId: number
+  filmId: number,
 }
 
 export const FilmCardButtonPlay = ({filmId}: FilmCardButtonPlayProps) => {

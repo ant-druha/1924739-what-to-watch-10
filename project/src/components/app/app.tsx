@@ -13,7 +13,7 @@ import {Film} from '../../types/film';
 import {getRandomSlice} from '../../mocks/utils';
 
 type AppProps = {
-  films: Film[]
+  films: Film[],
 }
 
 export const App = ({films}: AppProps): JSX.Element => (

@@ -7,8 +7,8 @@ import {GenresList} from '../../components/genres-list/genres-list';
 import {useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
-  films: Film[]
-}
+  films: Film[],
+};
 
 export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
   const {id: filmId, name: filmTitle, genre: filmGenre, released: filmReleaseDate, backgroundImage, posterImage} = films[0];

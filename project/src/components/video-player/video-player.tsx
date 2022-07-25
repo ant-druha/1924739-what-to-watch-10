@@ -5,7 +5,7 @@ type VideoPlayerProps = {
   poster: string,
   isPlaying: boolean,
   isMuteSound: boolean,
-}
+};
 
 export const VideoPlayer = ({source, poster, isPlaying, isMuteSound = false}: VideoPlayerProps): JSX.Element => {
   const playerRef = useRef<HTMLVideoElement | null>(null);

@@ -4,7 +4,7 @@ import {changeGenre, getFilmsByGenre} from '../../store/action';
 import React from 'react';
 
 type GenresListProps = {
-  genres: Set<string>
+  genres: Set<string>,
 };
 
 export const GenresList = ({genres}: GenresListProps) => {

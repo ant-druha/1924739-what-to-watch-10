@@ -4,8 +4,9 @@ import {PageFooter} from '../../components/page-footer/page-footer';
 import {Logo} from '../../components/logo/logo';
 
 type MyListScreenProps = {
-  films: Film[]
-}
+  films: Film[],
+};
+
 export const MyListScreen = ({films}: MyListScreenProps): JSX.Element => (
   <div className="user-page">
     <header className="page-header user-page__head">
