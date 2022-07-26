@@ -16,7 +16,7 @@ export const FilmTabReviews = ({comments = []}: FilmTabReviewsProps) => {
         const commentsBatch = comments.slice(startIndex, startIndex + COMMENTS_PER_COL);
 
         return (
-          <div key={startIndex} className="film-card__reviews-col">
+          <div key={Math.round(Math.random() * 1000)} className="film-card__reviews-col">
             {commentsBatch.map((comment) => (
               <div className="review" key={comment.id}>
                 <blockquote className="review__quote">
