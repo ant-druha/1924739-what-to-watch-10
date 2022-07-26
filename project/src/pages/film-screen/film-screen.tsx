@@ -6,8 +6,9 @@ import {FilmsList} from '../../components/films-list/films-list';
 import {getRandomSlice} from '../../mocks/utils';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {Logo} from '../../components/logo/logo';
-import {AppRoute, RATING_LEVEL_EXCELLENT, RATING_LEVEL_GOOD, RATING_LEVEL_VERY_GOOD} from '../../const';
+import {AppRoute} from '../../const';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
+import {FilmTabs} from '../../components/film-tabs/film-tabs';
 
 export const FilmScreen = (): JSX.Element => {
   const params = useParams();
@@ -20,22 +21,6 @@ export const FilmScreen = (): JSX.Element => {
   if (!film) {
     return <NotFoundScreen/>;
   }
-
-  const getFilmRatingLevel = (rating: number): string => {
-    if (rating < RATING_LEVEL_GOOD) {
-      return 'Bad';
-    }
-    if (rating < RATING_LEVEL_VERY_GOOD) {
-      return 'Good';
-    }
-    if (rating < RATING_LEVEL_EXCELLENT) {
-      return 'Very good';
-    }
-    if (rating >= RATING_LEVEL_EXCELLENT) {
-      return 'Excellent';
-    }
-    return '';
-  };
 
   return (
     <>
@@ -91,36 +76,8 @@ export const FilmScreen = (): JSX.Element => {
               <img src={film.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <FilmTabs film={film}/>
 
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{getFilmRatingLevel(film.rating)}</span>
-                  <span className="film-rating__count">{film.scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                {film.description}
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-                <p className="film-card__starring"><strong>Starring: {film.starring.join(', ')} and other</strong>
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
