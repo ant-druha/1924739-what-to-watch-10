@@ -1,6 +1,5 @@
 import {FilmTabProps} from './film-tabs';
 
-
 export const FilmTabDetails = ({film}: FilmTabProps) => (
   <div className="film-card__text film-card__row">
     <div className="film-card__text-col">
