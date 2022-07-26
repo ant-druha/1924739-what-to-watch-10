@@ -3,7 +3,6 @@ import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {FILMS} from '../../mocks/films';
 import {Film} from '../../types/film';
 import {FilmsList} from '../../components/films-list/films-list';
-import {getRandomSlice} from '../../mocks/utils';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {Logo} from '../../components/logo/logo';
 import {AppRoute} from '../../const';
@@ -21,6 +20,9 @@ export const FilmScreen = (): JSX.Element => {
   if (!film) {
     return <NotFoundScreen/>;
   }
+
+  const SIMILAR_FILMS_COUNT = 4;
+  const similarFilms = FILMS.filter((aFilm) => aFilm.genre === film.genre && aFilm.id !== film.id).slice(0, SIMILAR_FILMS_COUNT);
 
   return (
     <>
@@ -85,7 +87,7 @@ export const FilmScreen = (): JSX.Element => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={getRandomSlice(FILMS)}/>
+          <FilmsList films={similarFilms}/>
         </section>
 
         <PageFooter/>

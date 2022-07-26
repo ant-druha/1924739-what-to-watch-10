@@ -16,7 +16,8 @@ export const GenresList = ({genres}: GenresListProps) => {
   const dispatch = useAppDispatch();
 
   const handleGenreClick = (evt: React.MouseEvent) => {
-    const target = (evt.currentTarget as HTMLElement) as HTMLElement;
+    evt.preventDefault();
+    const target = evt.target as HTMLLinkElement;
     const genre = target?.dataset?.genre as string;
     if (genre) {
       currentGenre = genre;
