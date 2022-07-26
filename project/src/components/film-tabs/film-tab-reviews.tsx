@@ -31,7 +31,7 @@ export const FilmTabReviews = ({comments = []}: FilmTabReviewsProps) => {
 
                 <div className="review__rating">{comment.rating}</div>
               </div>
-            ))};
+            ))}
           </div>
         );
       })}
