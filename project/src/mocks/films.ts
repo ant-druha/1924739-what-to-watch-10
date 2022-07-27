@@ -109,4 +109,6 @@ const generateFilm = (): Film => ({
 
 const generateFilms = (n: number): Film[] => Array.from({length: n}, () => generateFilm());
 
-export const FILMS = generateFilms(8);
+export const FILMS = generateFilms(30);
+
+export const COMMENTS = generateComments(FILMS);
