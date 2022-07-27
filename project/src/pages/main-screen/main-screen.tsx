@@ -80,9 +80,6 @@ export const MainScreen = ({films}: MainScreenProps): JSX.Element => {
 
           <FilmsList films={filteredFilms}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button"> Show more</button>
-          </div>
         </section>
 
         <PageFooter/>
