@@ -1,5 +1,6 @@
 import {createIdGenerator, getRandomFloat, getRandomInteger, getRandomSlice, getRandomValue} from './utils';
 import {Film} from '../types/film';
+import {generateComments} from './comment';
 
 const generateFilmId = createIdGenerator();
 
@@ -109,3 +110,5 @@ const generateFilm = (): Film => ({
 const generateFilms = (n: number): Film[] => Array.from({length: n}, () => generateFilm());
 
 export const FILMS = generateFilms(8);
+
+export const COMMENTS = generateComments(FILMS);

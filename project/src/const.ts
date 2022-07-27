@@ -19,3 +19,9 @@ export const AuthorizationStatus = {
 } as const;
 
 export const GENRE_ALL = 'All genres';
+
+export const FilmTabNames = {
+  Overview: 'Overview',
+  Details: 'Details',
+  Review: 'Review'
+} as const;
