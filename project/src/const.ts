@@ -25,3 +25,7 @@ export const FilmTabNames = {
   Details: 'Details',
   Review: 'Review'
 } as const;
+
+export const APIRoute = {
+  Films: '/films'
+} as const;
