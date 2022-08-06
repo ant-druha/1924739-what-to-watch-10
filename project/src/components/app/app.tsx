@@ -19,7 +19,7 @@ export const App = (): JSX.Element => {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen films={films}/>}
+          element={<MainScreen/>}
         />
         <Route path={AppRoute.Login} element={<LoginScreen/>}/>
         <Route path={AppRoute.MyList} element={

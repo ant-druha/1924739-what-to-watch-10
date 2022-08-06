@@ -3,7 +3,7 @@ import {AppDispatch, State} from '../types/state';
 import {AxiosInstance} from 'axios';
 import {Film, Films} from '../types/film';
 import {APIRoute} from '../const';
-import {loadFilms, loadPromoFilm} from './action';
+import {loadFilms, loadPromoFilm, setFilmsLoadingStatus} from './action';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -12,8 +12,10 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
+    dispatch(setFilmsLoadingStatus(true));
     const {data} = await api.get<Films>(APIRoute.Films);
     dispatch(loadFilms(data));
+    dispatch(setFilmsLoadingStatus(false));
   }
 );
 

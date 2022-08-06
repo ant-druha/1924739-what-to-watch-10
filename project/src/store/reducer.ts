@@ -1,12 +1,20 @@
 import {GENRE_ALL} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
-import {changeGenre, getFilmsByGenre, loadFilms, loadPromoFilm} from './action';
+import {changeGenre, getFilmsByGenre, loadFilms, loadPromoFilm, setFilmsLoadingStatus} from './action';
 import {Film, FilmGenre} from '../types/film';
 
-const initialState: { genre: FilmGenre, films: Film[], promoFilm: Film | undefined } = {
+export type InitialState = {
+  genre: FilmGenre,
+  films: Film[],
+  promoFilm: Film | undefined,
+  isFilmsLoading: boolean,
+}
+
+const initialState: InitialState = {
   genre: GENRE_ALL,
   films: [],
-  promoFilm: undefined
+  promoFilm: undefined,
+  isFilmsLoading: false
 };
 
 
@@ -24,6 +32,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload.genre;
+    })
+    .addCase(setFilmsLoadingStatus, (state, action) => {
+      state.isFilmsLoading = action.payload;
     });
 });
 

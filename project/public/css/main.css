@@ -1440,3 +1440,9 @@ main {
   color: #fff;
   background: #fd612ead;
   border-radius: 15px; }
+
+.spinner {
+  display: block;
+  text-align: center;
+  font-size: 28px;
+}

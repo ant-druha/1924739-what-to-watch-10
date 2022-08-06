@@ -8,3 +8,5 @@ export const getFilmsByGenre = createAction<{ genre: FilmGenre }>('data/getFilms
 export const loadFilms = createAction<Films>('data/loadFilms');
 
 export const loadPromoFilm = createAction<Film>('data/loadPromoFilm');
+
+export const setFilmsLoadingStatus = createAction<boolean>('data/setFilmsLoadingStatus');
