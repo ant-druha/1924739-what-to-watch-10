@@ -1,19 +1,31 @@
-import {ReviewComment} from '../../types/film';
+import {Comments} from '../../types/film';
+import {useEffect, useState} from 'react';
+import {createAPI} from '../../services/api';
+import {APIRoute} from '../../const';
 
 type FilmTabReviewsProps = {
-  comments: ReviewComment[] | undefined,
+  filmId: number,
 };
 
-export const FilmTabReviews = ({comments = []}: FilmTabReviewsProps) => {
-  const COMMENTS_PER_COL = 3;
-  const columnsCount = Math.ceil(comments.length / COMMENTS_PER_COL);
+export const FilmTabReviews = ({filmId}: FilmTabReviewsProps) => {
+  const COMMENTS_PER_COLUMN = 3;
+  const [comments, setComments] = useState<Comments>([]);
+
+  useEffect(() => {
+    createAPI().get(`${APIRoute.Comments}/${filmId}`)
+      .then(({data}) => {
+        setComments(data);
+      });
+  }, [filmId]);
+
+  const getColumns = () => Math.ceil(comments.length / COMMENTS_PER_COLUMN);
 
 
   return (
     <div className="film-card__reviews film-card__row">
-      {[...Array(columnsCount).keys()].map((_, index) => {
-        const startIndex = index * COMMENTS_PER_COL;
-        const commentsBatch = comments.slice(startIndex, startIndex + COMMENTS_PER_COL);
+      {[...Array(getColumns()).keys()].map((_, index) => {
+        const startIndex = index * COMMENTS_PER_COLUMN;
+        const commentsBatch = comments.slice(startIndex, startIndex + COMMENTS_PER_COLUMN);
 
         return (
           <div key={Math.round(Math.random() * 1000)} className="film-card__reviews-col">

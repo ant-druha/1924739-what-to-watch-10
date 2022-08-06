@@ -1,10 +1,10 @@
-import {Film} from '../../types/film';
+import {Film, Films} from '../../types/film';
 import {FilmCard} from '../film-card/film-card';
 import React, {useEffect, useState} from 'react';
 import {ShowMoreButton} from '../show-more-button/show-more-button';
 
 type FilmsListProps = {
-  films: Film[],
+  films: Films,
 };
 
 export const FilmsList = ({films}: FilmsListProps) => {

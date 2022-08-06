@@ -5,7 +5,6 @@ import {FilmTabOverview} from './film-tab-overview';
 import {FilmTabDetails} from './film-tab-details';
 import {FilmTabReviews} from './film-tab-reviews';
 import {FilmTabsNav} from './film-tabs-nav';
-import {COMMENTS} from '../../mocks/films';
 
 export type Tab = typeof FilmTabNames[keyof typeof FilmTabNames];
 
@@ -32,7 +31,7 @@ export const FilmTabs = ({film}: FilmTabProps) => {
       case FilmTabNames.Details:
         return <FilmTabDetails film={film}/>;
       case FilmTabNames.Review:
-        return <FilmTabReviews comments={COMMENTS.get(film.id)}/>;
+        return <FilmTabReviews filmId={film.id}/>;
     }
   };
 

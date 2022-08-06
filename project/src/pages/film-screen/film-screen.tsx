@@ -1,6 +1,5 @@
 import {Link, useParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
-import {FILMS} from '../../mocks/films';
 import {Film} from '../../types/film';
 import {FilmsList} from '../../components/films-list/films-list';
 import {PageFooter} from '../../components/page-footer/page-footer';
@@ -8,21 +7,24 @@ import {Logo} from '../../components/logo/logo';
 import {AppRoute} from '../../const';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
 import {FilmTabs} from '../../components/film-tabs/film-tabs';
+import {useAppSelector} from '../../hooks';
 
 export const FilmScreen = (): JSX.Element => {
   const params = useParams();
+  const {films} = useAppSelector((state) => state);
+
   if (!params.id) {
     return <NotFoundScreen/>;
   }
 
-  const film = FILMS.find((aFilm) => aFilm.id === Number(params.id)) as Film;
+  const film = films.find((aFilm) => aFilm.id === Number(params.id)) as Film;
 
   if (!film) {
     return <NotFoundScreen/>;
   }
 
   const SIMILAR_FILMS_COUNT = 4;
-  const similarFilms = FILMS.filter((aFilm) => aFilm.genre === film.genre && aFilm.id !== film.id).slice(0, SIMILAR_FILMS_COUNT);
+  const similarFilms = films.filter((aFilm) => aFilm.genre === film.genre && aFilm.id !== film.id).slice(0, SIMILAR_FILMS_COUNT);
 
   return (
     <>
