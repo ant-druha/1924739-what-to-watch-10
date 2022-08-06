@@ -1,13 +1,14 @@
+import {Film} from '../../types/film';
 import {Logo} from '../logo/logo';
 import {FilmCardButtonPlay} from '../film-card-button/film-card-button-play';
-import {Film} from '../../types/film';
 
-type FilmCardPromoProps = {
+type FilmCardHeaderUserProps = {
   film: Film,
 };
 
-export const FilmCardPromo = ({film}: FilmCardPromoProps) => (
+export const FilmCardHeaderUser = ({film}: FilmCardHeaderUserProps) => (
   <section className="film-card">
+
     <div className="film-card__bg">
       <img src={film.backgroundImage} alt={film.name}/>
     </div>
@@ -28,13 +29,10 @@ export const FilmCardPromo = ({film}: FilmCardPromoProps) => (
         </li>
       </ul>
     </header>
-
     <div className="film-card__wrap">
       <div className="film-card__info">
         <div className="film-card__poster">
-          <img src={film.posterImage} alt={`${film.name} poster`} width="218"
-            height="327"
-          />
+          <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327"/>
         </div>
 
         <div className="film-card__desc">

@@ -2,8 +2,8 @@ import {FilmsList} from '../../components/films-list/films-list';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {GenresList} from '../../components/genres-list/genres-list';
 import {useAppSelector} from '../../hooks';
-import {FilmCardPromo} from '../../components/film-card-promo/film-card-promo';
 import {Spinner} from '../../components/spinner/spinner';
+import {FilmCardHeader} from '../../components/film-card-header/film-card-header';
 
 export const MainScreen = (): JSX.Element => {
   const {films, promoFilm, isFilmsLoading} = useAppSelector((state) => state);
@@ -15,7 +15,7 @@ export const MainScreen = (): JSX.Element => {
 
   return (
     <>
-      {promoFilm && <FilmCardPromo film={promoFilm}/>}
+      <FilmCardHeader film={promoFilm}/>
 
       <div className="page-content">
         <section className="catalog">
