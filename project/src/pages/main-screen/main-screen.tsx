@@ -1,5 +1,5 @@
 import {FilmsList} from '../../components/films-list/films-list';
-import {Film} from '../../types/film';
+import {Films} from '../../types/film';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {Logo} from '../../components/logo/logo';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
@@ -7,7 +7,7 @@ import {GenresList} from '../../components/genres-list/genres-list';
 import {useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
-  films: Film[],
+  films: Films,
 };
 
 export const MainScreen = ({films}: MainScreenProps): JSX.Element => {

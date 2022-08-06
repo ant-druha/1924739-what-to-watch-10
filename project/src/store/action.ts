@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {Film, FilmGenre} from '../types/film';
+import {FilmGenre, Films} from '../types/film';
 
 export const changeGenre = createAction<{ genre: FilmGenre }>('service/changeGenre');
 
@@ -7,4 +7,4 @@ export const getFilmsByGenre = createAction<{ genre: FilmGenre }>('data/getFilms
 
 export const getFilms = createAction('getFilms');
 
-export const loadFilms = createAction<Film[]>('data/loadFilms');
+export const loadFilms = createAction<Films>('data/loadFilms');

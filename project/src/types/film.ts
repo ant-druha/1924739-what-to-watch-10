@@ -30,3 +30,5 @@ export type ReviewComment = {
 };
 
 export type FilmGenre = string;
+
+export type Films = Film[];
