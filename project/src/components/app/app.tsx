@@ -1,6 +1,6 @@
 import {MainScreen} from '../../pages/main-screen/main-screen';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {LoginScreen} from '../../pages/login-screen/login-screen';
 import {MyListScreen} from '../../pages/my-list-screen/my-list-screen';
 import {AddReviewScreen} from '../../pages/add-review-screen/add-review-screen';
@@ -23,7 +23,7 @@ export const App = (): JSX.Element => {
         />
         <Route path={AppRoute.Login} element={<LoginScreen/>}/>
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+          <PrivateRoute>
             <MyListScreen films={getRandomSlice(films)}/>
           </PrivateRoute>
         }
