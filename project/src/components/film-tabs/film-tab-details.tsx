@@ -2,7 +2,7 @@ import {FilmTabProps} from './film-tabs';
 
 export const FilmTabDetails = ({film}: FilmTabProps) => (
   <div className="film-card__text film-card__row">
-    <div className="film-card__text-col">
+    <div key='Director' className="film-card__text-col">
       <p className="film-card__details-item">
         <strong className="film-card__details-name">Director</strong>
         <span className="film-card__details-value">{film.director}</span>
@@ -22,7 +22,7 @@ export const FilmTabDetails = ({film}: FilmTabProps) => (
       </p>
     </div>
 
-    <div className="film-card__text-col">
+    <div key='Run Time' className="film-card__text-col">
       <p className="film-card__details-item">
         <strong className="film-card__details-name">Run Time</strong>
         <span className="film-card__details-value">{film.runTime}</span>
