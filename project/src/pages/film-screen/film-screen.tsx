@@ -1,10 +1,8 @@
-import {Link, useParams, useSearchParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {Film} from '../../types/film';
 import {FilmsList} from '../../components/films-list/films-list';
 import {PageFooter} from '../../components/page-footer/page-footer';
-import {AppRoute} from '../../const';
-import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
 import {FilmTabs, Tab} from '../../components/film-tabs/film-tabs';
 import {useAppSelector} from '../../hooks';
 import {FilmCardDetailsHeader} from '../../components/film-card-details-header/film-card-detils-header';
@@ -34,30 +32,7 @@ export const FilmScreen = (): JSX.Element => {
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-
           <FilmCardDetailsHeader film={film}/>
-
-          <div className="film-card__wrap">
-            <div className="film-card__desc">
-              <h2 className="film-card__title">{film.name}</h2>
-              <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.released}</span>
-              </p>
-
-              <div className="film-card__buttons">
-                <FilmCardButtonPlay filmId={film.id}/>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
-                <Link to={`${AppRoute.Films}/${film.id}/review`} className="btn film-card__button">Add review</Link>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="film-card__wrap film-card__translate-top">
