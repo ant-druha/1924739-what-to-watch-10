@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import {AxiosInstance} from 'axios';
 import {Film, Films} from '../types/film';
-import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
+import {APIRoute, AppRoute, AuthorizationStatus, FilmTabNames} from '../const';
 import {
   deleteUserData,
   loadFilms,
@@ -14,6 +14,7 @@ import {
 } from './action';
 import {AuthData, UserData} from '../types/user';
 import {removeToken, saveToken} from '../services/token';
+import {FilmComment, NewComment} from '../types/comment';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -85,5 +86,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch(deleteUserData());
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
     dispatch(redirectToRoute(AppRoute.Root));
+  }
+);
+
+export const addCommentAction = createAsyncThunk<void, NewComment, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/addComment',
+  async ({filmId, comment, rating}, {dispatch, extra: api}) => {
+    await api.post<FilmComment>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
+    dispatch(redirectToRoute(`${AppRoute.Films}/${filmId}/?tab=${FilmTabNames.Review}`));
   }
 );

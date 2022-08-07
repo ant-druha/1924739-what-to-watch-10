@@ -10,10 +10,11 @@ export type Tab = typeof FilmTabNames[keyof typeof FilmTabNames];
 
 export type FilmTabProps = {
   film: Film,
+  activeTabName?: Tab,
 };
 
-export const FilmTabs = ({film}: FilmTabProps) => {
-  const [activeTab, setActiveTab] = useState<Tab>(FilmTabNames.Overview);
+export const FilmTabs = ({film, activeTabName = FilmTabNames.Overview}: FilmTabProps) => {
+  const [activeTab, setActiveTab] = useState<Tab>(activeTabName);
   const tabNames = Object.values(FilmTabNames);
 
   const handleTabClick = (evt: React.MouseEvent) => {

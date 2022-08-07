@@ -62,7 +62,7 @@ export const AddReviewScreen = (): JSX.Element => {
         </div>
       </div>
 
-      <AddReviewForm/>
+      <AddReviewForm filmId={film.id}/>
 
     </section>
   );

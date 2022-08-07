@@ -1,16 +1,18 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useSearchParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {Film} from '../../types/film';
 import {FilmsList} from '../../components/films-list/films-list';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {AppRoute} from '../../const';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
-import {FilmTabs} from '../../components/film-tabs/film-tabs';
+import {FilmTabs, Tab} from '../../components/film-tabs/film-tabs';
 import {useAppSelector} from '../../hooks';
 import {FilmCardDetailsHeader} from '../../components/film-card-details-header/film-card-detils-header';
 
 export const FilmScreen = (): JSX.Element => {
   const params = useParams();
+  const [searchParams] = useSearchParams();
+
   const {films} = useAppSelector((state) => state);
 
   if (!params.id) {
@@ -18,6 +20,8 @@ export const FilmScreen = (): JSX.Element => {
   }
 
   const film = films.find((aFilm) => aFilm.id === Number(params.id)) as Film;
+
+  const tabParam = searchParams.get('tab');
 
   if (!film) {
     return <NotFoundScreen/>;
@@ -62,7 +66,7 @@ export const FilmScreen = (): JSX.Element => {
               <img src={film.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
             </div>
 
-            <FilmTabs film={film}/>
+            {tabParam ? <FilmTabs film={film} activeTabName={tabParam as Tab}/> : <FilmTabs film={film}/>}
 
           </div>
         </div>

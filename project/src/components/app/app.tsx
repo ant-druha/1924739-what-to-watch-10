@@ -32,9 +32,14 @@ export const App = (): JSX.Element => {
         />
         <Route path={AppRoute.Films}>
           <Route index element={<NotFoundScreen/>}/>
-          <Route path={AppRoute.Film}>
+          <Route path={AppRoute.FilmId}>
             <Route index element={<FilmScreen/>}/>
-            <Route path={AppRoute.Review} element={<AddReviewScreen/>}/>
+            <Route path={AppRoute.Review} element={
+              <PrivateRoute>
+                <AddReviewScreen/>
+              </PrivateRoute>
+            }
+            />
           </Route>
         </Route>
         <Route path={AppRoute.Player} element={<PlayerScreen/>}/>
