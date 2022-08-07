@@ -1,5 +1,5 @@
 import {MainScreen} from '../../pages/main-screen/main-screen';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {LoginScreen} from '../../pages/login-screen/login-screen';
 import {MyListScreen} from '../../pages/my-list-screen/my-list-screen';
@@ -10,12 +10,14 @@ import {PrivateRoute} from '../private-route/private-route';
 import {FilmScreen} from '../../pages/film-screen/film-screen';
 import {getRandomSlice} from '../../mocks/utils';
 import {useAppSelector} from '../../hooks';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 export const App = (): JSX.Element => {
   const {films} = useAppSelector((state) => state);
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -38,7 +40,7 @@ export const App = (): JSX.Element => {
         <Route path={AppRoute.Player} element={<PlayerScreen/>}/>
         <Route path='*' element={<NotFoundScreen/>}/>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };
 
