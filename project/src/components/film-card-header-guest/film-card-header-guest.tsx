@@ -1,4 +1,5 @@
 import {Logo} from '../logo/logo';
+import {AppRoute} from '../../const';
 
 export const FilmCardHeaderGuest = () => (
   <section className="film-card">
@@ -9,7 +10,7 @@ export const FilmCardHeaderGuest = () => (
       <Logo/>
 
       <div className="user-block">
-        <a href="sign-in.html" className="user-block__link">Sign in</a>
+        <a href={AppRoute.Login} className="user-block__link">Sign in</a>
       </div>
     </header>
   </section>
