@@ -10,7 +10,7 @@ import {PrivateRoute} from '../private-route/private-route';
 import {FilmScreen} from '../../pages/film-screen/film-screen';
 import {getRandomSlice} from '../../mocks/utils';
 import {useAppSelector} from '../../hooks';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 
 export const App = (): JSX.Element => {
