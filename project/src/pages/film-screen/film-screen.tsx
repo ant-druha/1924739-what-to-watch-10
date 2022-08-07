@@ -3,11 +3,11 @@ import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {Film} from '../../types/film';
 import {FilmsList} from '../../components/films-list/films-list';
 import {PageFooter} from '../../components/page-footer/page-footer';
-import {Logo} from '../../components/logo/logo';
 import {AppRoute} from '../../const';
 import {FilmCardButtonPlay} from '../../components/film-card-button/film-card-button-play';
 import {FilmTabs} from '../../components/film-tabs/film-tabs';
 import {useAppSelector} from '../../hooks';
+import {FilmCardDetailsHeader} from '../../components/film-card-details-header/film-card-detils-header';
 
 export const FilmScreen = (): JSX.Element => {
   const params = useParams();
@@ -30,26 +30,8 @@ export const FilmScreen = (): JSX.Element => {
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name}/>
-          </div>
 
-          <h1 className="visually-hidden">WTW</h1>
-
-          <header className="page-header film-card__head">
-            <Logo/>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <FilmCardDetailsHeader film={film}/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">

@@ -31,4 +31,5 @@ export const APIRoute = {
   Comments: '/comments',
   Promo: '/promo',
   Login: '/login',
+  Logout: '/logout',
 } as const;
