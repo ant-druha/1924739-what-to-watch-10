@@ -1,0 +1,12 @@
+.add-review__form--disabled,
+.add-review__btn--disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.add-review__error-text {
+  display: none;
+  margin-right: auto;
+  font-size: 16px;
+  color: #ea3434;
+}
