@@ -5,13 +5,14 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppSelector} from '../../hooks';
 import FilmCardButtonPlay from '../film-card-button-play/film-card-button-play';
 import User from '../user/user';
+import FilmCardButtonMyList from '../film-card-button-my-list/film-card-button-my-list';
 
 type FilmCardDetailsHeaderProps = {
   film: Film,
 };
 
 export const FilmCardDetailsHeader = ({film}: FilmCardDetailsHeaderProps) => {
-  const {authorizationStatus, userData} = useAppSelector((state) => state);
+  const {authorizationStatus, userData, favourite} = useAppSelector((state) => state);
 
   return (
     <>
@@ -42,13 +43,9 @@ export const FilmCardDetailsHeader = ({film}: FilmCardDetailsHeaderProps) => {
 
           <div className="film-card__buttons">
             <FilmCardButtonPlay filmId={film.id}/>
-            <button className="btn btn--list film-card__button" type="button">
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#add"></use>
-              </svg>
-              <span>My list</span>
-              <span className="film-card__count">9</span>
-            </button>
+
+            <FilmCardButtonMyList filmCount={favourite.length}/>
+
             {
               authorizationStatus === AuthorizationStatus.Auth &&
               <Link to={`${AppRoute.Films}/${film.id}/review`} className="btn film-card__button">Add review</Link>
