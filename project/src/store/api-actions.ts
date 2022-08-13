@@ -4,7 +4,7 @@ import {AxiosInstance} from 'axios';
 import {Film, Films} from '../types/film';
 import {APIRoute, AppRoute, AuthorizationStatus, FilmTabNames} from '../const';
 import {
-  deleteUserData,
+  deleteUserData, getFilmsByGenre,
   loadFilms,
   loadPromoFilm,
   redirectToRoute,
@@ -22,10 +22,11 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance
 }>(
   'data/fetchFilms',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, {dispatch, getState, extra: api}) => {
     dispatch(setFilmsLoadingStatus(true));
     const {data} = await api.get<Films>(APIRoute.Films);
     dispatch(loadFilms(data));
+    dispatch(getFilmsByGenre(getState().genre));
     dispatch(setFilmsLoadingStatus(false));
   }
 );

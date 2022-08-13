@@ -4,7 +4,7 @@ import {Authorization, UserData} from '../types/user';
 
 export const changeGenre = createAction<{ genre: FilmGenre }>('service/changeGenre');
 
-export const getFilmsByGenre = createAction<{ genre: FilmGenre }>('data/getFilmsByGenre');
+export const getFilmsByGenre = createAction<FilmGenre>('data/getFilmsByGenre');
 
 export const loadFilms = createAction<Films>('data/loadFilms');
 

@@ -14,6 +14,7 @@ import {Authorization, UserData} from '../types/user';
 export type InitialState = {
   genre: FilmGenre,
   films: Film[],
+  filteredFilms: Film[],
   promoFilm: Film | undefined,
   isFilmsLoading: boolean,
   authorizationStatus: Authorization
@@ -23,6 +24,7 @@ export type InitialState = {
 const initialState: InitialState = {
   genre: GENRE_ALL,
   films: [],
+  filteredFilms: [],
   promoFilm: undefined,
   isFilmsLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown
@@ -38,8 +40,8 @@ const reducer = createReducer(initialState, (builder) => {
       state.promoFilm = action.payload;
     })
     .addCase(getFilmsByGenre, (state, action) => {
-      const {genre} = action.payload;
-      state.films = genre === GENRE_ALL ? [...state.films] : state.films.filter((film) => film.genre === genre);
+      const genre = action.payload;
+      state.filteredFilms = genre === GENRE_ALL ? [...state.films] : state.films.filter((film) => film.genre === genre);
     })
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload.genre;
@@ -53,7 +55,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(saveUserData, (state, action) => {
       state.userData = action.payload;
     })
-    .addCase(deleteUserData, (state, action) => {
+    .addCase(deleteUserData, (state, _) => {
       state.userData = undefined;
     });
 });

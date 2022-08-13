@@ -6,7 +6,7 @@ import {Spinner} from '../../components/spinner/spinner';
 import {FilmCardHeader} from '../../components/film-card-header/film-card-header';
 
 export const MainScreen = (): JSX.Element => {
-  const {films, promoFilm, isFilmsLoading} = useAppSelector((state) => state);
+  const {filteredFilms, films, promoFilm, isFilmsLoading} = useAppSelector((state) => state);
   const genres = new Set(films.map((film) => film.genre));
 
   if (isFilmsLoading) {
@@ -23,7 +23,7 @@ export const MainScreen = (): JSX.Element => {
 
           <GenresList genres={genres}/>
 
-          <FilmsList films={films}/>
+          <FilmsList films={filteredFilms}/>
 
         </section>
 
