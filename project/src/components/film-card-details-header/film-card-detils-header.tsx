@@ -3,7 +3,7 @@ import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppSelector} from '../../hooks';
-import FilmCardButtonPlay from '../film-card-button/film-card-button-play';
+import FilmCardButtonPlay from '../film-card-button-play/film-card-button-play';
 import User from '../user/user';
 
 type FilmCardDetailsHeaderProps = {

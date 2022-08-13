@@ -1,8 +1,8 @@
 import {Film} from '../../types/film';
 import Logo from '../logo/logo';
-import FilmCardButtonPlay from '../film-card-button/film-card-button-play';
+import FilmCardButtonPlay from '../film-card-button-play/film-card-button-play';
 import User from '../user/user';
-import FilmCardButtonMyList from '../film-card-button/film-card-button-my-list/film-card-button-my-list';
+import FilmCardButtonMyList from '../film-card-button-my-list/film-card-button-my-list';
 import {useAppSelector} from '../../hooks';
 
 type FilmCardHeaderUserProps = {
