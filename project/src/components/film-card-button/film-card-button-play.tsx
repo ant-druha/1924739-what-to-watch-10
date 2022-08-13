@@ -1,10 +1,11 @@
 import {useNavigate} from 'react-router-dom';
+import {memo} from 'react';
 
 type FilmCardButtonPlayProps = {
   filmId: number,
 }
 
-export const FilmCardButtonPlay = ({filmId}: FilmCardButtonPlayProps) => {
+const FilmCardButtonPlay = ({filmId}: FilmCardButtonPlayProps) => {
   const navigate = useNavigate();
   const onClickHandler = () => {
     navigate(`/player/${filmId}`);
@@ -19,3 +20,6 @@ export const FilmCardButtonPlay = ({filmId}: FilmCardButtonPlayProps) => {
     </button>
   );
 };
+
+
+export default memo(FilmCardButtonPlay);

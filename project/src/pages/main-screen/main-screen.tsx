@@ -1,4 +1,4 @@
-import {FilmsList} from '../../components/films-list/films-list';
+import FilmsList from '../../components/films-list/films-list';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {GenresList} from '../../components/genres-list/genres-list';
 import {useAppSelector} from '../../hooks';

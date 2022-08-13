@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
+import {memo} from 'react';
 
-export const Logo = () => (
+const Logo = () => (
   <div className="logo">
     <Link to="/" className="logo__link">
       <span className="logo__letter logo__letter--1">W</span>
@@ -9,3 +10,5 @@ export const Logo = () => (
     </Link>
   </div>
 );
+
+export default memo(Logo);

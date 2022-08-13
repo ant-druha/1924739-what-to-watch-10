@@ -2,7 +2,7 @@ import {Film} from '../../types/film';
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {VideoPlayer} from '../video-player/video-player';
+import VideoPlayer from '../video-player/video-player';
 
 export type FilmCardProps = {
   film: Film,

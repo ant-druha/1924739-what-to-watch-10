@@ -1,7 +1,7 @@
 import {useParams, useSearchParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {Film} from '../../types/film';
-import {FilmsList} from '../../components/films-list/films-list';
+import FilmsList from '../../components/films-list/films-list';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {FilmTabs, Tab} from '../../components/film-tabs/film-tabs';
 import {useAppSelector} from '../../hooks';

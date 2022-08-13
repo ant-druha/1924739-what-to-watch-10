@@ -1,5 +1,5 @@
 import {PageFooter} from '../../components/page-footer/page-footer';
-import {Logo} from '../../components/logo/logo';
+import Logo from '../../components/logo/logo';
 import {FormEvent, useRef} from 'react';
 import {AuthData} from '../../types/user';
 import {loginAction} from '../../store/api-actions';

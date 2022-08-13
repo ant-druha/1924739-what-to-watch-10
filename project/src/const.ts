@@ -29,6 +29,7 @@ export const FilmTabNames = {
 
 export const APIRoute = {
   Films: '/films',
+  Favourite: '/favourite',
   Comments: '/comments',
   Promo: '/promo',
   Login: '/login',

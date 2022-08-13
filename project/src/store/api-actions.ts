@@ -4,7 +4,7 @@ import {AxiosInstance} from 'axios';
 import {Film, Films} from '../types/film';
 import {APIRoute, AppRoute, AuthorizationStatus, FilmTabNames} from '../const';
 import {
-  deleteUserData, getFilmsByGenre,
+  deleteUserData, getFavouriteFilms, getFilmsByGenre,
   loadFilms,
   loadPromoFilm,
   redirectToRoute,
@@ -27,6 +27,20 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<Films>(APIRoute.Films);
     dispatch(loadFilms(data));
     dispatch(getFilmsByGenre(getState().genre));
+    dispatch(setFilmsLoadingStatus(false));
+  }
+);
+
+export const fetchFavouriteFilmsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchFavouriteFilms',
+  async (_arg, {dispatch, getState, extra: api}) => {
+    dispatch(setFilmsLoadingStatus(true));
+    const {data} = await api.get<Films>(APIRoute.Favourite);
+    dispatch(getFavouriteFilms(data));
     dispatch(setFilmsLoadingStatus(false));
   }
 );

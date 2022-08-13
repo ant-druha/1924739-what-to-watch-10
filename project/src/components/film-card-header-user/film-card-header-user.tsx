@@ -1,10 +1,9 @@
 import {Film} from '../../types/film';
-import {Logo} from '../logo/logo';
-import {FilmCardButtonPlay} from '../film-card-button/film-card-button-play';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
-import {logoutAction} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
+import Logo from '../logo/logo';
+import FilmCardButtonPlay from '../film-card-button/film-card-button-play';
+import User from '../user/user';
+import FilmCardButtonMyList from '../film-card-button/film-card-button-my-list/film-card-button-my-list';
+import {useAppSelector} from '../../hooks';
 
 type FilmCardHeaderUserProps = {
   film: Film,
@@ -12,11 +11,7 @@ type FilmCardHeaderUserProps = {
 };
 
 export const FilmCardHeaderUser = ({film, avatarUrl}: FilmCardHeaderUserProps) => {
-  const dispatch = useAppDispatch();
-
-  const onLogoutClick = () => {
-    dispatch(logoutAction());
-  };
+  const {favourite} = useAppSelector((state) => state);
 
   return (
     <section className="film-card">
@@ -28,18 +23,11 @@ export const FilmCardHeaderUser = ({film, avatarUrl}: FilmCardHeaderUserProps) =
       <h1 className="visually-hidden">WTW</h1>
 
       <header className="page-header film-card__head">
+
         <Logo/>
 
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src={avatarUrl || 'img/avatar.jpg'} alt="User avatar" width="63" height="63"/>
-            </div>
-          </li>
-          <li className="user-block__item">
-            <Link to={AppRoute.Root} onClick={onLogoutClick} className="user-block__link">Sign out</Link>
-          </li>
-        </ul>
+        <User avatarUrl={avatarUrl}/>
+
       </header>
       <div className="film-card__wrap">
         <div className="film-card__info">
@@ -55,14 +43,11 @@ export const FilmCardHeaderUser = ({film, avatarUrl}: FilmCardHeaderUserProps) =
             </p>
 
             <div className="film-card__buttons">
+
               <FilmCardButtonPlay filmId={film.id}/>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-                <span className="film-card__count">9</span>
-              </button>
+
+              <FilmCardButtonMyList filmCount={favourite.length}/>
+
             </div>
           </div>
         </div>

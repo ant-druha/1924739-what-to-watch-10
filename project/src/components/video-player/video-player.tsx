@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 
 type VideoPlayerProps = {
   source: string,
@@ -7,7 +7,7 @@ type VideoPlayerProps = {
   isMuteSound: boolean,
 };
 
-export const VideoPlayer = ({source, poster, isPlaying, isMuteSound = false}: VideoPlayerProps): JSX.Element => {
+const VideoPlayer = ({source, poster, isPlaying, isMuteSound = false}: VideoPlayerProps): JSX.Element => {
   const playerRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -34,3 +34,5 @@ export const VideoPlayer = ({source, poster, isPlaying, isMuteSound = false}: Vi
     </video>
   );
 };
+
+export default memo(VideoPlayer);
