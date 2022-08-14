@@ -44,7 +44,7 @@ export const FilmCardDetailsHeader = ({film}: FilmCardDetailsHeaderProps) => {
           <div className="film-card__buttons">
             <FilmCardButtonPlay filmId={film.id}/>
 
-            <FilmCardButtonMyList filmCount={favourite.length}/>
+            <FilmCardButtonMyList filmId={film.id} isFavourite={film.isFavorite} filmCount={favourite.length}/>
 
             {
               authorizationStatus === AuthorizationStatus.Auth &&

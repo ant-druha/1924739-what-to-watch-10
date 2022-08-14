@@ -27,6 +27,8 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<Films>(APIRoute.Films);
     dispatch(loadFilms(data));
     dispatch(getFilmsByGenre(getState().genre));
+    await dispatch(fetchFavouriteFilmsAction());
+    await dispatch(fetchPromoFilmAction());
     dispatch(setFilmsLoadingStatus(false));
   }
 );
@@ -37,11 +39,9 @@ export const fetchFavouriteFilmsAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance
 }>(
   'data/fetchFavouriteFilms',
-  async (_arg, {dispatch, getState, extra: api}) => {
-    dispatch(setFilmsLoadingStatus(true));
+  async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Films>(APIRoute.Favourite);
     dispatch(getFavouriteFilms(data));
-    dispatch(setFilmsLoadingStatus(false));
   }
 );
 
@@ -67,8 +67,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     try {
       await api.get(APIRoute.Login);
       dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-    }
-    catch (e) {
+    } catch (e) {
       dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
     }
   }
@@ -113,5 +112,21 @@ export const addCommentAction = createAsyncThunk<void, NewComment, {
   async ({filmId, comment, rating}, {dispatch, extra: api}) => {
     await api.post<FilmComment>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
     dispatch(redirectToRoute(`${AppRoute.Films}/${filmId}/?tab=${FilmTabNames.Review}`));
+  }
+);
+
+export const toggleFavouriteAction = createAsyncThunk<void, { filmId: number, status: number }, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/toggleFavourite',
+  async ({filmId, status}, {dispatch, getState, extra: api}) => {
+    await api.post<Film>(`${APIRoute.Favourite}/${filmId}/${status}`, {});
+    const {data} = await api.get<Films>(APIRoute.Films);
+    dispatch(loadFilms(data));
+    dispatch(getFilmsByGenre(getState().genre));
+    await dispatch(fetchFavouriteFilmsAction());
+    await dispatch(fetchPromoFilmAction());
   }
 );
