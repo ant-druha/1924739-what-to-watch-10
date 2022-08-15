@@ -6,9 +6,9 @@ import {APIRoute, AppRoute, FilmTabNames} from '../const';
 import {AuthData, UserData} from '../types/user';
 import {removeToken, saveToken} from '../services/token';
 import {FilmComment, NewComment} from '../types/comment';
-import {updateStateLocally} from './util';
 import {deleteUserData, saveUserData} from './user-process/user-process-data';
 import {redirectToRoute} from './action';
+
 
 export const fetchFilmsAction = createAsyncThunk<Films, undefined, {
   dispatch: AppDispatch,
@@ -99,15 +99,14 @@ export const addCommentAction = createAsyncThunk<void, NewComment, {
   }
 );
 
-export const toggleFavouriteAction = createAsyncThunk<void, { filmId: number, status: number }, {
+export const toggleFavouriteAction = createAsyncThunk<Film, { filmId: number, status: number }, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/toggleFavourite',
-  async ({filmId, status}, {getState, extra: api}) => {
+  async ({filmId, status}, {extra: api}) => {
     const {data: updatedFilm} = await api.post<Film>(`${APIRoute.Favourite}/${filmId}/${status}`, {});
-
-    updateStateLocally(updatedFilm, getState());
+    return updatedFilm;
   }
 );

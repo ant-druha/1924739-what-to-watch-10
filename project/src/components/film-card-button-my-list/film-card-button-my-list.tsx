@@ -1,6 +1,5 @@
 import {useAppDispatch} from '../../hooks';
 import {toggleFavouriteAction} from '../../store/api-actions';
-import {memo} from 'react';
 
 type FilmCardButtonMyListProps = {
   filmId: number,
@@ -16,17 +15,18 @@ const FilmCardButtonMyList = ({filmId, isFavourite, filmCount}: FilmCardButtonMy
 
   return (
     <button
-      className="btn btn--list film-card__button"
-      type="button"
+      className='btn btn--list film-card__button'
+      type='button'
       onClick={handleClick}
     >
-      <svg viewBox="0 0 19 20" width="19" height="20">
-        <use xlinkHref="#add"></use>
+      <svg viewBox='0 0 19 20' width='19' height='20'>
+        <use xlinkHref='#add'></use>
       </svg>
       <span>My list</span>
-      <span className="film-card__count">{filmCount}</span>
+      <span className='film-card__count'>{filmCount}</span>
     </button>
   );
 };
 
-export default memo(FilmCardButtonMyList);
+// export default memo(FilmCardButtonMyList);
+export default FilmCardButtonMyList;
