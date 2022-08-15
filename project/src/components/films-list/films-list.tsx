@@ -7,7 +7,7 @@ type FilmsListProps = {
   films: Films,
 };
 
-const FilmsList = ({films}: FilmsListProps) => {
+export const FilmsList = ({films}: FilmsListProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeFilmId, setActiveFilmId] = useState<number | null>(null);
 
@@ -44,5 +44,3 @@ const FilmsList = ({films}: FilmsListProps) => {
     </>
   );
 };
-
-export default FilmsList;

@@ -1,9 +1,10 @@
 import {GENRE_ALL} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeGenre, getFilmsByGenre} from '../../store/action';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {FilmGenre} from '../../types/film';
+import {changeGenre} from '../../store/app-process/app-process';
+import {getGenre} from '../../store/app-process/selectors';
 
 type GenresListProps = {
   genres: Set<FilmGenre>,
@@ -13,7 +14,7 @@ export const GenresList = ({genres}: GenresListProps) => {
   const genresList = [...genres].slice(0, 8).sort();
   genresList.unshift(GENRE_ALL);
 
-  let {genre: currentGenre} = useAppSelector((state) => state);
+  let currentGenre = useAppSelector(getGenre);
 
   const dispatch = useAppDispatch();
 
@@ -24,7 +25,6 @@ export const GenresList = ({genres}: GenresListProps) => {
     if (genre) {
       currentGenre = genre;
       dispatch(changeGenre({genre}));
-      dispatch(getFilmsByGenre(genre));
     }
   };
 

@@ -4,6 +4,7 @@ import FilmCardButtonPlay from '../film-card-button-play/film-card-button-play';
 import User from '../user/user';
 import FilmCardButtonMyList from '../film-card-button-my-list/film-card-button-my-list';
 import {useAppSelector} from '../../hooks';
+import {getFavorites} from '../../store/app-data/selectors';
 
 type FilmCardHeaderUserProps = {
   film: Film,
@@ -11,7 +12,7 @@ type FilmCardHeaderUserProps = {
 };
 
 export const FilmCardHeaderUser = ({film, avatarUrl}: FilmCardHeaderUserProps) => {
-  const {favourite} = useAppSelector((state) => state);
+  const favourite = useAppSelector(getFavorites);
 
   return (
     <section className="film-card">

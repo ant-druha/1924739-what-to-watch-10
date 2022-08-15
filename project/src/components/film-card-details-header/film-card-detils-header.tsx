@@ -6,13 +6,17 @@ import {useAppSelector} from '../../hooks';
 import FilmCardButtonPlay from '../film-card-button-play/film-card-button-play';
 import User from '../user/user';
 import FilmCardButtonMyList from '../film-card-button-my-list/film-card-button-my-list';
+import {getAuthorizationStatus, getUserData} from '../../store/user-process/selectors';
+import {getFavorites} from '../../store/app-data/selectors';
 
 type FilmCardDetailsHeaderProps = {
   film: Film,
 };
 
 export const FilmCardDetailsHeader = ({film}: FilmCardDetailsHeaderProps) => {
-  const {authorizationStatus, userData, favourite} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userData = useAppSelector(getUserData);
+  const favourite = useAppSelector(getFavorites);
 
   return (
     <>

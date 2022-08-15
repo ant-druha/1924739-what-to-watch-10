@@ -1,17 +1,18 @@
 import {useParams, useSearchParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {Film} from '../../types/film';
-import FilmsList from '../../components/films-list/films-list';
+import {FilmsList} from '../../components/films-list/films-list';
 import {PageFooter} from '../../components/page-footer/page-footer';
 import {FilmTabs, Tab} from '../../components/film-tabs/film-tabs';
 import {useAppSelector} from '../../hooks';
 import {FilmCardDetailsHeader} from '../../components/film-card-details-header/film-card-detils-header';
+import {getFilms} from '../../store/app-data/selectors';
 
 export const FilmScreen = (): JSX.Element => {
   const params = useParams();
   const [searchParams] = useSearchParams();
 
-  const {films} = useAppSelector((state) => state);
+  const films = useAppSelector(getFilms);
 
   if (!params.id) {
     return <NotFoundScreen/>;
