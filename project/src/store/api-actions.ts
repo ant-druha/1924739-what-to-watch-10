@@ -10,6 +10,20 @@ import {deleteUserData, saveUserData} from './user-process/user-process-data';
 import {redirectToRoute} from './action';
 
 
+export const initFilmsAction = createAsyncThunk<Films, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/initFilms',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data: films} = await api.get<Films>(APIRoute.Films);
+    dispatch(fetchFavouriteFilmsAction());
+    dispatch(fetchPromoFilmAction());
+    return films;
+  }
+);
+
 export const fetchFilmsAction = createAsyncThunk<Films, undefined, {
   dispatch: AppDispatch,
   state: State,
@@ -105,8 +119,9 @@ export const toggleFavouriteAction = createAsyncThunk<Film, { filmId: number, st
   extra: AxiosInstance
 }>(
   'data/toggleFavourite',
-  async ({filmId, status}, {extra: api}) => {
+  async ({filmId, status}, {extra: api, dispatch}) => {
     const {data: updatedFilm} = await api.post<Film>(`${APIRoute.Favourite}/${filmId}/${status}`, {});
+    dispatch(fetchFilmsAction());
     return updatedFilm;
   }
 );
