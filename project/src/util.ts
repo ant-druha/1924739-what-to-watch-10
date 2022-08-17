@@ -15,3 +15,12 @@ export const getFilmRatingLevel = (rating: number): string => {
   }
   return '';
 };
+
+export const formatToHHMMSS = (seconds: number) : string => {
+  // const secondsInt = parseInt(seconds, 10);
+  const secondsInt = seconds;
+  const hour = Math.floor(secondsInt / 3600).toString().padStart(2, '0');
+  const minute = Math.floor((secondsInt - (+hour * 3600)) / 60).toString().padStart(2, '0');
+  const second = secondsInt - (+hour * 3600) - +(+minute * 60).toString().padStart(2, '0');
+  return `${hour}:${minute}:${second}`;
+};
