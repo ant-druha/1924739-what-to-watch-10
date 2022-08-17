@@ -8,18 +8,25 @@ type VideoPlayerProps = {
   isMuteSound?: boolean,
 };
 
-const VideoPlayer = ({source, poster, isPlaying, className, isMuteSound = false}: VideoPlayerProps): JSX.Element => {
+const VideoPlayerFull = ({
+  source,
+  poster,
+  isPlaying,
+  className,
+  isMuteSound = false
+}: VideoPlayerProps): JSX.Element => {
   const playerRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (playerRef.current === null) {
+    const player = playerRef.current;
+    if (player === null) {
       return;
     }
 
     if (isPlaying) {
-      playerRef.current.play();
+      player.play();
     } else {
-      playerRef.current.src = source;
+      player.pause();
     }
   });
 
@@ -30,11 +37,9 @@ const VideoPlayer = ({source, poster, isPlaying, className, isMuteSound = false}
       poster={poster}
       muted={isMuteSound}
       className={className}
-      width="280"
-      height="175"
     >
     </video>
   );
 };
 
-export default memo(VideoPlayer);
+export default memo(VideoPlayerFull);

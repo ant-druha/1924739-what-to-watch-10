@@ -29,8 +29,16 @@ export const FilmTabNames = {
 
 export const APIRoute = {
   Films: '/films',
+  Favourite: '/favorite',
   Comments: '/comments',
   Promo: '/promo',
   Login: '/login',
   Logout: '/logout',
+} as const;
+
+export const Namespace = {
+  USER_DATA: 'USER_DATA',
+  USER_AUTH: 'USER_AUTH',
+  DATA: 'DATA',
+  APP: 'APP',
 } as const;

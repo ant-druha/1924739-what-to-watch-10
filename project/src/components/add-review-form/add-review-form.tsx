@@ -1,7 +1,8 @@
 import './add-review-form.css';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {addCommentAction} from '../../store/api-actions';
+import Rating from '../rating/rating';
 
 type AddReviewFormProps = {
   filmId: number,
@@ -18,22 +19,7 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
 
   const dispatch = useAppDispatch();
 
-  const handleClick = (evt: React.MouseEvent) => {
-    const target = evt.target as HTMLInputElement;
-    target.checked = true;
-    setRating(Number(target.value));
-    setSubmitDisabled(!validate());
-  };
-
-  const handleTextChange = (evt: React.FormEvent) => {
-    const textArea = evt.target as HTMLTextAreaElement;
-    setText(textArea.value);
-    setSubmitDisabled(!validate());
-  };
-
-  const validate = (): boolean => validateText() && validateRating();
-
-  const validateText = (): boolean => {
+  const validateText = useCallback((): boolean => {
     if (textAreaRef === null || textAreaRef.current === null) {
       return false;
     }
@@ -53,7 +39,7 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
     }
 
     return true;
-  };
+  }, [text.length]);
 
   const validateRating = (): boolean => {
     let errorElement = null;
@@ -76,6 +62,22 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
     return true;
   };
 
+  const validate = (): boolean => validateText() && validateRating();
+
+  const handleRatingClick = useCallback(
+    (evt: React.MouseEvent) => {
+      const target = evt.target as HTMLInputElement;
+      target.checked = true;
+      setRating(Number(target.value));
+      setSubmitDisabled(!validate());
+    }, []);
+
+  const handleTextChange = (evt: React.FormEvent) => {
+    const textArea = evt.target as HTMLTextAreaElement;
+    setText(textArea.value);
+    setSubmitDisabled(!validate());
+  };
+
   const handleFormSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
 
@@ -92,41 +94,7 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
         className={`add-review__form ${isFormDisabled ? 'add-review__form--disabled' : ''}`}
         onSubmit={handleFormSubmit}
       >
-        <div className="rating">
-          <div className="rating__stars">
-            <input className="rating__input" id="star-10" type="radio" name="rating" value="10" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-10">Rating 10</label>
-
-            <input className="rating__input" id="star-9" type="radio" name="rating" value="9" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-            <input className="rating__input" id="star-8" type="radio" name="rating" value="8" onClick={handleClick}
-              defaultChecked
-            />
-            <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-            <input className="rating__input" id="star-7" type="radio" name="rating" value="7" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-            <input className="rating__input" id="star-6" type="radio" name="rating" value="6" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-            <input className="rating__input" id="star-5" type="radio" name="rating" value="5" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-            <input className="rating__input" id="star-4" type="radio" name="rating" value="4" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-            <input className="rating__input" id="star-3" type="radio" name="rating" value="3" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-            <input className="rating__input" id="star-2" type="radio" name="rating" value="2" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-            <input className="rating__input" id="star-1" type="radio" name="rating" value="1" onClick={handleClick}/>
-            <label className="rating__label" htmlFor="star-1">Rating 1</label>
-          </div>
-        </div>
+        <Rating handleClick={handleRatingClick}/>
 
         <div className="add-review__text">
           <textarea
@@ -140,7 +108,8 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
           </textarea>
           <div className="add-review__submit">
             <span className='add-review__error-text'></span>
-            <button className={`add-review__btn ${isSubmitDisabled ? 'add-review__btn--disabled' : ''} `}
+            <button
+              className={`add-review__btn ${isSubmitDisabled ? 'add-review__btn--disabled' : ''} `}
               type="submit"
             >Post
             </button>

@@ -1,22 +1,22 @@
 import {Film} from '../../types/film';
-import {Logo} from '../logo/logo';
+import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {logoutAction} from '../../store/api-actions';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {FilmCardButtonPlay} from '../film-card-button/film-card-button-play';
+import {useAppSelector} from '../../hooks';
+import FilmCardButtonPlay from '../film-card-button-play/film-card-button-play';
+import User from '../user/user';
+import FilmCardButtonMyList from '../film-card-button-my-list/film-card-button-my-list';
+import {getAuthorizationStatus, getUserData} from '../../store/user-process/selectors';
+import {getFavorites} from '../../store/app-data/selectors';
 
 type FilmCardDetailsHeaderProps = {
   film: Film,
 };
 
 export const FilmCardDetailsHeader = ({film}: FilmCardDetailsHeaderProps) => {
-  const dispatch = useAppDispatch();
-  const {authorizationStatus, userData} = useAppSelector((state) => state);
-
-  const onLogoutClick = () => {
-    dispatch(logoutAction());
-  };
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userData = useAppSelector(getUserData);
+  const favourite = useAppSelector(getFavorites);
 
   return (
     <>
@@ -30,16 +30,7 @@ export const FilmCardDetailsHeader = ({film}: FilmCardDetailsHeaderProps) => {
         <Logo/>
 
         {authorizationStatus === AuthorizationStatus.Auth ?
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src={userData?.avatarUrl || 'img/avatar.jpg'} alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <Link to={AppRoute.Root} onClick={onLogoutClick} className="user-block__link">Sign out</Link>
-            </li>
-          </ul>
+          <User avatarUrl={userData?.avatarUrl}/>
           :
           <div className="user-block">
             <Link to={AppRoute.Login} className="user-block__link">Sign in</Link>
@@ -56,13 +47,9 @@ export const FilmCardDetailsHeader = ({film}: FilmCardDetailsHeaderProps) => {
 
           <div className="film-card__buttons">
             <FilmCardButtonPlay filmId={film.id}/>
-            <button className="btn btn--list film-card__button" type="button">
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#add"></use>
-              </svg>
-              <span>My list</span>
-              <span className="film-card__count">9</span>
-            </button>
+
+            <FilmCardButtonMyList filmId={film.id} isFavourite={film.isFavorite} filmCount={favourite.length}/>
+
             {
               authorizationStatus === AuthorizationStatus.Auth &&
               <Link to={`${AppRoute.Films}/${film.id}/review`} className="btn film-card__button">Add review</Link>

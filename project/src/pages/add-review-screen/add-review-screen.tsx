@@ -1,14 +1,18 @@
 import {Link, useParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {Film} from '../../types/film';
-import {Logo} from '../../components/logo/logo';
+import Logo from '../../components/logo/logo';
 import {AppRoute} from '../../const';
 import {AddReviewForm} from '../../components/add-review-form/add-review-form';
 import {useAppSelector} from '../../hooks';
+import {getFilms} from '../../store/app-data/selectors';
+import User from '../../components/user/user';
+import {getUserData} from '../../store/user-process/selectors';
 
 export const AddReviewScreen = (): JSX.Element => {
   const params = useParams();
-  const {films} = useAppSelector((state) => state);
+  const films = useAppSelector(getFilms);
+  const userData = useAppSelector(getUserData);
 
   if (!params.id) {
     return <NotFoundScreen/>;
@@ -43,16 +47,8 @@ export const AddReviewScreen = (): JSX.Element => {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <User avatarUrl={userData?.avatarUrl}/>
+
         </header>
 
         <div className="film-card__poster film-card__poster--small">
