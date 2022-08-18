@@ -1,5 +1,8 @@
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {toggleFavouriteAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {redirectToRoute} from '../../store/action';
 import {memo} from 'react';
 
 type FilmCardButtonMyListProps = {
@@ -10,8 +13,13 @@ type FilmCardButtonMyListProps = {
 
 const FilmCardButtonMyList = ({filmId, isFavourite, filmCount}: FilmCardButtonMyListProps) => {
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const handleClick = () => {
-    dispatch(toggleFavouriteAction({filmId, status: isFavourite ? 0 : 1}));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(toggleFavouriteAction({filmId, status: isFavourite ? 0 : 1}));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
   };
 
   return (
