@@ -16,7 +16,7 @@ export const PlayerScreen = (): JSX.Element => {
 
   const film = films.find((aFilm) => aFilm.id === Number(params.id)) as Film;
 
-  const [isPlaying, setPlaying] = useState(false);
+  const [isPlaying, setPlaying] = useState(true);
   const [timeLeft, setTimeLeft] = useState(film?.runTime || 0);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | undefined>(undefined);
 
