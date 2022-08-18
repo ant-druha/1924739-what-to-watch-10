@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getFilms} from '../../store/app-data/selectors';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import VideoPlayerScreen from '../../components/video-player-full/video-player-full';
 import {redirectToRoute} from '../../store/action';
 import {AppRoute} from '../../const';
@@ -18,16 +18,18 @@ export const PlayerScreen = (): JSX.Element => {
 
   const [isPlaying, setPlaying] = useState(true);
   const [timeLeft, setTimeLeft] = useState(film?.runTime || 0);
-  const [timerId, setTimerId] = useState<NodeJS.Timeout | undefined>(undefined);
+  const timerId = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     if (isPlaying) {
-      const interval = setInterval(() => {
-        setTimeLeft((prevState) => prevState - 1);
-      }, 1000);
-      setTimerId(interval);
+      if (!timerId.current) {
+        timerId.current = setInterval(() => {
+          setTimeLeft((prevState) => prevState - 1);
+        }, 1000);
+      }
     } else {
-      clearInterval(timerId);
+      clearInterval(timerId.current);
+      timerId.current = undefined;
     }
   }, [isPlaying]);
 
