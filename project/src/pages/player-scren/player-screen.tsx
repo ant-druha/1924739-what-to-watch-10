@@ -16,22 +16,37 @@ export const PlayerScreen = (): JSX.Element => {
 
   const film = films.find((aFilm) => aFilm.id === Number(params.id)) as Film;
 
+  const filmRuntime = film?.runTime || 0;
   const [isPlaying, setPlaying] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(film?.runTime || 0);
+  const [timeLeft, setTimeLeft] = useState(filmRuntime);
+  const [playerProgress, setPlayerProgress] = useState(0);
   const timerId = useRef<NodeJS.Timeout | undefined>(undefined);
+
+  const resetInterval = () => {
+    clearInterval(timerId.current);
+    timerId.current = undefined;
+  };
 
   useEffect(() => {
     if (isPlaying) {
       if (!timerId.current) {
         timerId.current = setInterval(() => {
-          setTimeLeft((prevState) => prevState - 1);
+          setTimeLeft((prevState) => {
+            const newTimeLeft = prevState - 1;
+            setPlayerProgress((filmRuntime - newTimeLeft) * 100 / filmRuntime);
+            if (newTimeLeft <= 0) {
+              resetInterval();
+              setPlaying(false);
+            }
+            return newTimeLeft;
+
+          });
         }, 1000);
       }
     } else {
-      clearInterval(timerId.current);
-      timerId.current = undefined;
+      resetInterval();
     }
-  }, [isPlaying]);
+  }, [filmRuntime, isPlaying]);
 
   if (!params.id || !film) {
     return <NotFoundScreen/>;
@@ -62,8 +77,8 @@ export const PlayerScreen = (): JSX.Element => {
       <div className='player__controls'>
         <div className='player__controls-row'>
           <div className='player__time'>
-            <progress className='player__progress' value='30' max='100'></progress>
-            <div className='player__toggler' style={{left: '30%'}}>Toggler</div>
+            <progress className='player__progress' value={`${playerProgress}`} max='100'></progress>
+            <div className='player__toggler' style={{left: `${playerProgress}%`}}>Toggler</div>
           </div>
           <div className='player__time-value'>{`${formatToHHMMSS(timeLeft)}`}</div>
         </div>
