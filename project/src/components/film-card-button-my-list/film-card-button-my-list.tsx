@@ -1,5 +1,9 @@
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {toggleFavouriteAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {redirectToRoute} from '../../store/action';
+import {memo} from 'react';
 
 type FilmCardButtonMyListProps = {
   filmId: number,
@@ -9,8 +13,13 @@ type FilmCardButtonMyListProps = {
 
 const FilmCardButtonMyList = ({filmId, isFavourite, filmCount}: FilmCardButtonMyListProps) => {
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const handleClick = () => {
-    dispatch(toggleFavouriteAction({filmId, status: isFavourite ? 0 : 1}));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(toggleFavouriteAction({filmId, status: isFavourite ? 0 : 1}));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
   };
 
   return (
@@ -20,7 +29,7 @@ const FilmCardButtonMyList = ({filmId, isFavourite, filmCount}: FilmCardButtonMy
       onClick={handleClick}
     >
       <svg viewBox='0 0 19 20' width='19' height='20'>
-        <use xlinkHref='#add'></use>
+        <use xlinkHref={`${isFavourite ? '#in-list' : '#add'}`}></use>
       </svg>
       <span>My list</span>
       <span className='film-card__count'>{filmCount}</span>
@@ -28,5 +37,4 @@ const FilmCardButtonMyList = ({filmId, isFavourite, filmCount}: FilmCardButtonMy
   );
 };
 
-// export default memo(FilmCardButtonMyList);
-export default FilmCardButtonMyList;
+export default memo(FilmCardButtonMyList);

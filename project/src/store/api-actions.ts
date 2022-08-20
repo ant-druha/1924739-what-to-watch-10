@@ -97,6 +97,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     removeToken();
     dispatch(deleteUserData());
+    dispatch(fetchFilmsAction());
     dispatch(redirectToRoute(AppRoute.Root));
   }
 );

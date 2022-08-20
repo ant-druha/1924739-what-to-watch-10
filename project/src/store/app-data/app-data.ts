@@ -34,6 +34,9 @@ export const appData = createSlice({
       .addCase(fetchFavouriteFilmsAction.fulfilled, (state, action) => {
         state.favourite = action.payload;
       })
+      .addCase(fetchFavouriteFilmsAction.rejected, (state) => {
+        state.favourite = [];
+      })
       .addCase(fetchPromoFilmAction.fulfilled, (state, action) => {
         state.promoFilm = action.payload;
       });
