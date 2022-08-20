@@ -1,5 +1,5 @@
 import './add-review-form.css';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {addCommentAction} from '../../store/api-actions';
 import Rating from '../rating/rating';
@@ -19,13 +19,13 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
 
   const dispatch = useAppDispatch();
 
-  const validateText = useCallback((): boolean => {
+  const validateText = (inputText: string): boolean => {
     if (textAreaRef === null || textAreaRef.current === null) {
       return false;
     }
     const errorElement = formRef?.current?.querySelector('.add-review__error-text');
 
-    if (text.length < 50 || text.length > 400) {
+    if (inputText.length < 50 || inputText.length > 400) {
       if (errorElement instanceof HTMLElement) {
         errorElement.textContent = 'Text length must be between 50 and 400 characters.';
         errorElement.style.display = 'inline';
@@ -39,7 +39,7 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
     }
 
     return true;
-  }, [text.length]);
+  };
 
   const validateRating = (): boolean => {
     let errorElement = null;
@@ -62,20 +62,19 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
     return true;
   };
 
-  const validate = (): boolean => validateText() && validateRating();
+  const validate = (inputText: string): boolean => validateText(inputText) && validateRating();
 
-  const handleRatingClick = useCallback(
-    (evt: React.MouseEvent) => {
-      const target = evt.target as HTMLInputElement;
-      target.checked = true;
-      setRating(Number(target.value));
-      setSubmitDisabled(!validate());
-    }, []);
+  const handleRatingClick = (evt: React.MouseEvent) => {
+    const target = evt.target as HTMLInputElement;
+    target.checked = true;
+    setRating(Number(target.value));
+    setSubmitDisabled(!validate(text));
+  };
 
   const handleTextChange = (evt: React.FormEvent) => {
     const textArea = evt.target as HTMLTextAreaElement;
     setText(textArea.value);
-    setSubmitDisabled(!validate());
+    setSubmitDisabled(!validate(textArea.value));
   };
 
   const handleFormSubmit = async (evt: React.FormEvent) => {
