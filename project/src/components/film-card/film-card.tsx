@@ -35,9 +35,9 @@ export const FilmCard = ({film, handleHoverOn, handleHoverOff}: FilmCardProps): 
       onMouseEnter={() => handleMouse(true)}
       onMouseLeave={() => handleMouse(false)}
     >
-      <div className="small-film-card__image">
+      <Link to={`${AppRoute.Films}/${film.id}`} className="small-film-card__image">
         <VideoPlayer source={film.previewVideoLink} poster={film.posterImage} isPlaying={isPlayPreview} isMuteSound/>
-      </div>
+      </Link>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`${AppRoute.Films}/${film.id}`}>{film.name}</Link>
       </h3>
