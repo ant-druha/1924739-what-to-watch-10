@@ -2,6 +2,7 @@ import {Comments} from '../../types/film';
 import {useEffect, useState} from 'react';
 import {createAPI} from '../../services/api';
 import {APIRoute} from '../../const';
+import dayjs from 'dayjs';
 
 type FilmTabReviewsProps = {
   filmId: number,
@@ -29,21 +30,24 @@ export const FilmTabReviews = ({filmId}: FilmTabReviewsProps) => {
 
         return (
           <div key={Math.round(Math.random() * 1000)} className="film-card__reviews-col">
-            {commentsBatch.map((comment) => (
-              <div className="review" key={comment.id}>
-                <blockquote className="review__quote">
-                  <p className="review__text">{comment.comment}
-                  </p>
+            {commentsBatch.map((comment) => {
+              const date = dayjs(comment.date);
+              return (
+                <div className="review" key={comment.id}>
+                  <blockquote className="review__quote">
+                    <p className="review__text">{comment.comment}
+                    </p>
 
-                  <footer className="review__details">
-                    <cite className="review__author">{comment.user.name}</cite>
-                    <time className="review__date" dateTime="2016-12-24">{comment.date}</time>
-                  </footer>
-                </blockquote>
+                    <footer className="review__details">
+                      <cite className="review__author">{comment.user.name}</cite>
+                      <time className="review__date" dateTime={date.format('YYYY-MM-DD')}>{date.format('MMMM DD, YYYY')}</time>
+                    </footer>
+                  </blockquote>
 
-                <div className="review__rating">{comment.rating}</div>
-              </div>
-            ))}
+                  <div className="review__rating">{comment.rating}</div>
+                </div>
+              );
+            })}
           </div>
         );
       })}
