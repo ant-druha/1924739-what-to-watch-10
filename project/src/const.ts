@@ -42,3 +42,10 @@ export const Namespace = {
   DATA: 'DATA',
   APP: 'APP',
 } as const;
+
+export const PlayMode = {
+  Play: 'Play',
+  Pause: 'Pause',
+  Stop: 'Stop',
+  Restart: 'Restart',
+} as const;

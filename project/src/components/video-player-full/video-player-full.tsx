@@ -1,9 +1,12 @@
 import {memo, useEffect, useRef} from 'react';
+import {PlayMode} from '../../const';
+
+export type PlayerMode = keyof typeof PlayMode;
 
 type VideoPlayerProps = {
   source: string,
   poster: string,
-  isPlaying: boolean,
+  playMode: PlayerMode,
   className?: string,
   isMuteSound?: boolean,
 };
@@ -11,7 +14,7 @@ type VideoPlayerProps = {
 const VideoPlayerFull = ({
   source,
   poster,
-  isPlaying,
+  playMode,
   className,
   isMuteSound = false
 }: VideoPlayerProps): JSX.Element => {
@@ -23,10 +26,19 @@ const VideoPlayerFull = ({
       return;
     }
 
-    if (isPlaying) {
-      player.play();
-    } else {
-      player.pause();
+    switch (playMode) {
+      case PlayMode.Play:
+        player.play();
+        break;
+      case PlayMode.Stop:
+        player.src = source;
+        break;
+      case PlayMode.Pause:
+        player.pause();
+        break;
+      case PlayMode.Restart:
+        player.src = source;
+        player.play();
     }
   });
 

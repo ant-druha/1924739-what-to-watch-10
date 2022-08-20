@@ -4,9 +4,9 @@ import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getFilms} from '../../store/app-data/selectors';
 import {useEffect, useRef, useState} from 'react';
-import VideoPlayerScreen from '../../components/video-player-full/video-player-full';
+import VideoPlayerScreen, {PlayerMode} from '../../components/video-player-full/video-player-full';
 import {redirectToRoute} from '../../store/action';
-import {AppRoute} from '../../const';
+import {AppRoute, PlayMode} from '../../const';
 import {formatToHHMMSS} from '../../util';
 
 export const PlayerScreen = (): JSX.Element => {
@@ -17,7 +17,7 @@ export const PlayerScreen = (): JSX.Element => {
   const film = films.find((aFilm) => aFilm.id === Number(params.id)) as Film;
 
   const filmRuntime = film?.runTime || 0;
-  const [isPlaying, setPlaying] = useState(true);
+  const [playerMode, setPlayerMode] = useState<PlayerMode>(PlayMode.Play);
   const [timeLeft, setTimeLeft] = useState(filmRuntime);
   const [playerProgress, setPlayerProgress] = useState(0);
   const timerId = useRef<NodeJS.Timeout | undefined>(undefined);
@@ -28,15 +28,17 @@ export const PlayerScreen = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (isPlaying) {
+    if (playerMode === PlayMode.Play) {
       if (!timerId.current) {
         timerId.current = setInterval(() => {
           setTimeLeft((prevState) => {
             const newTimeLeft = prevState - 1;
             setPlayerProgress((filmRuntime - newTimeLeft) * 100 / filmRuntime);
             if (newTimeLeft <= 0) {
+              setPlayerMode(PlayMode.Stop);
+              setPlayerProgress(0);
               resetInterval();
-              setPlaying(false);
+              return filmRuntime;
             }
             return newTimeLeft;
 
@@ -46,14 +48,18 @@ export const PlayerScreen = (): JSX.Element => {
     } else {
       resetInterval();
     }
-  }, [filmRuntime, isPlaying]);
+  }, [filmRuntime, playerMode]);
 
   if (!params.id || !film) {
     return <NotFoundScreen/>;
   }
 
   const onPlayClick = () => {
-    setPlaying(!isPlaying);
+    if (playerMode === PlayMode.Play) {
+      setPlayerMode(PlayMode.Pause);
+    } else {
+      setPlayerMode(PlayMode.Play);
+    }
   };
 
   const onExitClick = () => {
@@ -70,7 +76,7 @@ export const PlayerScreen = (): JSX.Element => {
 
   return (
     <div className='player'>
-      <VideoPlayerScreen source={film.videoLink} poster={film.posterImage} className='player__video' isPlaying={isPlaying}/>
+      <VideoPlayerScreen source={film.videoLink} poster={film.posterImage} className='player__video' playMode={playerMode}/>
 
       <button type='button' className='player__exit' onClick={onExitClick}>Exit</button>
 
@@ -86,7 +92,7 @@ export const PlayerScreen = (): JSX.Element => {
         <div className='player__controls-row'>
           <button type='button' className='player__play' onClick={onPlayClick}>
             <svg viewBox='0 0 19 19' width='19' height='19'>
-              {isPlaying ? <use xlinkHref='#pause'></use> : <use xlinkHref='#play-s'></use>}
+              <use xlinkHref={`${playerMode === PlayMode.Pause ? '#pause' : '#play-s'}`}></use>
             </svg>
             <span>Play</span>
           </button>
