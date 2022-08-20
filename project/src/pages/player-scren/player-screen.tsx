@@ -9,6 +9,7 @@ import {redirectToRoute} from '../../store/action';
 import {AppRoute, PlayMode} from '../../const';
 import {formatToHHMMSS} from '../../util';
 
+const SECOND = 1000;
 export const PlayerScreen = (): JSX.Element => {
   const params = useParams();
   const films = useAppSelector(getFilms);
@@ -43,7 +44,7 @@ export const PlayerScreen = (): JSX.Element => {
             return newTimeLeft;
 
           });
-        }, 1000);
+        }, SECOND);
       }
     } else {
       resetInterval();
