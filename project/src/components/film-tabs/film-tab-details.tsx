@@ -1,4 +1,5 @@
 import {FilmTabProps} from './film-tabs';
+import {formatToHHMMSS} from '../../util';
 
 export const FilmTabDetails = ({film}: FilmTabProps) => (
   <div className="film-card__text film-card__row">
@@ -25,7 +26,7 @@ export const FilmTabDetails = ({film}: FilmTabProps) => (
     <div key='Run Time' className="film-card__text-col">
       <p className="film-card__details-item">
         <strong className="film-card__details-name">Run Time</strong>
-        <span className="film-card__details-value">{film.runTime}</span>
+        <span className="film-card__details-value">{formatToHHMMSS(film.runTime)}</span>
       </p>
       <p className="film-card__details-item">
         <strong className="film-card__details-name">Genre</strong>
