@@ -87,7 +87,7 @@ export const PlayerScreen = (): JSX.Element => {
             <progress className='player__progress' value={`${playerProgress}`} max='100'></progress>
             <div className='player__toggler' style={{left: `${playerProgress}%`}}>Toggler</div>
           </div>
-          <div className='player__time-value'>{`${formatToHHMMSS(timeLeft)}`}</div>
+          <div className='player__time-value'>{`-${formatToHHMMSS(timeLeft)}`}</div>
         </div>
 
         <div className='player__controls-row'>
