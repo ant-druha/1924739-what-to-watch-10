@@ -17,9 +17,10 @@ export const getFilmRatingLevel = (rating: number): string => {
 };
 
 export const formatToHHMMSS = (seconds: number) : string => {
-  const secondsInt = seconds;
-  const hour = Math.floor(secondsInt / 3600).toString().padStart(2, '0');
-  const minute = Math.floor((secondsInt - (+hour * 3600)) / 60).toString().padStart(2, '0');
-  const second = secondsInt - (+hour * 3600) - +(+minute * 60).toString().padStart(2, '0');
+  const SECONDS_IN_HOUR = 3600;
+  const hour = Math.floor(seconds / SECONDS_IN_HOUR).toString().padStart(2, '0');
+  const SECONDS_IN_MINUTE = 60;
+  const minute = Math.floor((seconds - (+hour * SECONDS_IN_HOUR)) / SECONDS_IN_MINUTE).toString().padStart(2, '0');
+  const second = seconds - (+hour * SECONDS_IN_HOUR) - +(+minute * SECONDS_IN_MINUTE).toString().padStart(2, '0');
   return `${hour}:${minute}:${second}`;
 };

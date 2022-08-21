@@ -25,7 +25,10 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
     }
     const errorElement = formRef?.current?.querySelector('.add-review__error-text');
 
-    if (inputText.length < 50 || inputText.length > 400) {
+    const MIN_TEXT_LEN = 50;
+    const MAX_TEXT_LEN = 400;
+
+    if (inputText.length < MIN_TEXT_LEN || inputText.length > MAX_TEXT_LEN) {
       if (errorElement instanceof HTMLElement) {
         errorElement.textContent = 'Text length must be between 50 and 400 characters.';
         errorElement.style.display = 'inline';
