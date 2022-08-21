@@ -4,6 +4,7 @@ import {FormEvent, useRef} from 'react';
 import {AuthData} from '../../types/user';
 import {loginAction} from '../../store/api-actions';
 import {useAppDispatch} from '../../hooks';
+import {toast} from 'react-toastify';
 
 export const LoginScreen = (): JSX.Element => {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -15,15 +16,37 @@ export const LoginScreen = (): JSX.Element => {
     dispatch(loginAction(authData));
   };
 
+  const validatePassword = (password: string | undefined): boolean => {
+    const regexp = new RegExp('\\d+\\D+|\\D+\\d+');
+    if (!password || !regexp.test(password)) {
+      toast.warn('Password must contain at least one letter and one digit');
+      return false;
+    }
+    return true;
+  };
+
+  const validateEmail = (email: string | undefined): boolean => {
+    if (!email) {
+      toast.warn('Email must not be empty');
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+    const password = passwordRef.current?.value;
+    const login = loginRef.current?.value;
+
+    if (!validateEmail(login) || !validatePassword(password)) {
+      return;
     }
+
+    onSubmit({
+      login,
+      password,
+    } as AuthData);
   };
 
   return (
