@@ -1,16 +1,19 @@
 import {PageFooter} from '../../components/page-footer/page-footer';
 import Logo from '../../components/logo/logo';
-import {FormEvent, useRef} from 'react';
+import {FormEvent, useRef, useState} from 'react';
 import {AuthData} from '../../types/user';
 import {loginAction} from '../../store/api-actions';
 import {useAppDispatch} from '../../hooks';
-import {toast} from 'react-toastify';
 
 export const LoginScreen = (): JSX.Element => {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+
+  const [errorText, setErrorText] = useState('');
+  const [isEmailError, setIsEmailError] = useState(false);
+  const [isPasswordError, setIsPasswordError] = useState(false);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -19,7 +22,8 @@ export const LoginScreen = (): JSX.Element => {
   const validatePassword = (password: string | undefined): boolean => {
     const regexp = new RegExp('\\d+\\D+|\\D+\\d+');
     if (!password || !regexp.test(password)) {
-      toast.warn('Password must contain at least one letter and one digit');
+      setErrorText('Password must contain at least one letter and one digit');
+      setIsPasswordError(true);
       return false;
     }
     return true;
@@ -27,7 +31,8 @@ export const LoginScreen = (): JSX.Element => {
 
   const validateEmail = (email: string | undefined): boolean => {
     if (!email) {
-      toast.warn('Email must not be empty');
+      setErrorText('Email must not be empty');
+      setIsEmailError(true);
       return false;
     }
     return true;
@@ -49,6 +54,12 @@ export const LoginScreen = (): JSX.Element => {
     } as AuthData);
   };
 
+  const errorMessageElement = (
+    <div className="sign-in__message">
+      <p>{errorText}</p>
+    </div>
+  );
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -59,8 +70,9 @@ export const LoginScreen = (): JSX.Element => {
 
       <div className="sign-in user-page__content">
         <form action="" className="sign-in__form" onSubmit={handleSubmit}>
+          {errorText && errorMessageElement}
           <div className="sign-in__fields">
-            <div className="sign-in__field">
+            <div className={`sign-in__field ${isEmailError ? 'sign-in__field--error' : '' }`}>
               <input
                 ref={loginRef}
                 className="sign-in__input"
@@ -71,7 +83,7 @@ export const LoginScreen = (): JSX.Element => {
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
-            <div className="sign-in__field">
+            <div className={`sign-in__field ${isPasswordError ? 'sign-in__field--error' : '' }`}>
               <input className="sign-in__input"
                 ref={passwordRef}
                 type="password"
