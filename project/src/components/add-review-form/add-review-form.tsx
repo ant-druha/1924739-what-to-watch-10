@@ -41,13 +41,13 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
     return true;
   };
 
-  const validateRating = (): boolean => {
+  const validateRating = (ratingInput: number | undefined): boolean => {
     let errorElement = null;
     if (textAreaRef !== null && textAreaRef.current !== null) {
       errorElement = formRef?.current?.querySelector('.add-review__error-text');
     }
 
-    if (rating === null || rating === 0) {
+    if (!ratingInput) {
       if (errorElement instanceof HTMLElement) {
         errorElement.textContent = 'Rating must be set.';
         errorElement.style.display = 'inline';
@@ -62,19 +62,20 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
     return true;
   };
 
-  const validate = (inputText: string): boolean => validateText(inputText) && validateRating();
+  const validate = (textInput: string, ratingInput: number | undefined): boolean => validateText(textInput) && validateRating(ratingInput);
 
   const handleRatingClick = (evt: React.MouseEvent) => {
     const target = evt.target as HTMLInputElement;
     target.checked = true;
-    setRating(Number(target.value));
-    setSubmitDisabled(!validate(text));
+    const ratingInput = Number(target.value);
+    setRating(ratingInput);
+    setSubmitDisabled(!validate(text, ratingInput));
   };
 
   const handleTextChange = (evt: React.FormEvent) => {
     const textArea = evt.target as HTMLTextAreaElement;
     setText(textArea.value);
-    setSubmitDisabled(!validate(textArea.value));
+    setSubmitDisabled(!validate(textArea.value, rating));
   };
 
   const handleFormSubmit = async (evt: React.FormEvent) => {
@@ -101,7 +102,7 @@ export const AddReviewForm = ({filmId}: AddReviewFormProps) => {
             className="add-review__textarea"
             name="review-text"
             id="review-text"
-            placeholder="AddReviewScreen text"
+            placeholder="Your review text"
             onInput={handleTextChange}
           >
           </textarea>
