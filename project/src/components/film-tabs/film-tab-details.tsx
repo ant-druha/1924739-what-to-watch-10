@@ -12,12 +12,12 @@ export const FilmTabDetails = ({film}: FilmTabProps) => (
         <strong className="film-card__details-name">Starring</strong>
         <span className="film-card__details-value">
           {film.starring.map((actor, index) => (
-            <>
+            <span key={actor}>
               {actor}
               {index + 1 < film.starring.length && (
                 <>,<br></br></>
               )}
-            </>
+            </span>
           ))}
         </span>
       </p>
