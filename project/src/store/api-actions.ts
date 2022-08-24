@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
-import {AxiosInstance} from 'axios';
+import {AxiosError, AxiosInstance} from 'axios';
 import {Film, Films} from '../types/film';
 import {APIRoute, AppRoute, FilmTabNames} from '../const';
 import {AuthData, UserData} from '../types/user';
@@ -8,6 +8,7 @@ import {removeToken, saveToken} from '../services/token';
 import {FilmComment, NewComment} from '../types/comment';
 import {deleteUserData, saveUserData} from './user-process/user-process-data';
 import {redirectToRoute} from './action';
+import {StatusCodes} from 'http-status-codes';
 
 
 export const initFilmsAction = createAsyncThunk<Films, undefined, {
@@ -45,8 +46,15 @@ export const fetchFavouriteFilmsAction = createAsyncThunk<Films, undefined, {
 }>(
   'data/fetchFavouriteFilms',
   async (_arg, {extra: api}) => {
-    const {data: films} = await api.get<Films>(APIRoute.Favourite);
-    return films;
+    try {
+      const {data: films} = await api.get<Films>(APIRoute.Favourite);
+      return films;
+    } catch (error) {
+      if ((error as AxiosError)?.response?.status === StatusCodes.UNAUTHORIZED) {
+        return [];
+      }
+      throw error;
+    }
   }
 );
 
